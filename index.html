@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wealthy CEO Timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: fixed left timeline rail (days as glowing nodes on a vertical line), reading column on the right; rail becomes a drawer on phones */
+:root {
+  --bg: #120b1c;
+  --surface: #1b1128;
+  --surface-2: #241735;
+  --line: #3b2a52;
+  --fg: #f1e8fb;
+  --muted: #b7a6cd;
+  --lav: #c8a6f4;
+  --pink: #ff4fa3;
+  --gold: #e9c47c;
+  --gold-soft: rgba(233, 196, 124, 0.14);
+  --pink-soft: rgba(255, 79, 163, 0.14);
+  --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --rail: 288px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  background-image: radial-gradient(ellipse at 80% -10%, rgba(200, 166, 244, 0.12), transparent 55%), radial-gradient(ellipse at 0% 110%, rgba(255, 79, 163, 0.08), transparent 50%);
+  background-attachment: fixed;
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+}
+a { color: var(--lav); }
+button { font-family: inherit; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* Shell */
+.shell { display: grid; grid-template-columns: var(--rail) minmax(0, 1fr); min-height: 100%; }
+
+/* Rail */
+.rail {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid var(--line);
+  background: rgba(18, 11, 28, 0.92);
+  padding-block: 32px;
+  padding-inline: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.brand { display: flex; flex-direction: column; gap: 4px; }
+.brand-kicker { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.brand-title { font-family: var(--serif); font-size: 30px; line-height: 1.05; font-weight: 500; margin: 0; }
+.brand-title em { color: var(--gold); font-style: italic; }
+
+.why-link {
+  display: flex; align-items: center; gap: 12px;
+  width: 100%; text-align: left;
+  background: var(--gold-soft);
+  border: 1px solid rgba(233, 196, 124, 0.35);
+  color: var(--fg);
+  border-radius: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+}
+.why-link .sigil { color: var(--gold); font-size: 18px; line-height: 1; }
+.why-link .lbl { display: flex; flex-direction: column; }
+.why-link .lbl strong { font-family: var(--serif); font-size: 20px; font-weight: 600; line-height: 1.1; }
+.why-link .lbl span { font-size: 12px; color: var(--muted); }
+.why-link[aria-current="true"] { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset; }
+
+.timeline-label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; }
+.timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+.timeline::before {
+  content: ""; position: absolute; left: 9px; top: 14px; bottom: 14px; width: 2px;
+  background: linear-gradient(to bottom, var(--gold), var(--lav) 40%, var(--line));
+  opacity: 0.6;
+}
+.node-btn {
+  position: relative;
+  display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 14px; align-items: start;
+  width: 100%; text-align: left;
+  background: none; border: 0; color: var(--fg);
+  padding: 10px 8px 10px 0; cursor: pointer; border-radius: 10px;
+}
+.node-btn:hover .node-name { color: var(--lav); }
+.dot {
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 2px solid var(--line); background: var(--bg);
+  margin-top: 3px; position: relative; z-index: 1;
+}
+.node-btn.open .dot { border-color: var(--lav); }
+.node-btn.done .dot { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 12px rgba(233, 196, 124, 0.55); }
+.node-btn[aria-current="true"] .dot { border-color: var(--pink); box-shadow: 0 0 0 4px var(--pink-soft); }
+.node-btn[aria-current="true"].done .dot { border-color: var(--gold); box-shadow: 0 0 0 4px var(--gold-soft), 0 0 14px rgba(233, 196, 124, 0.6); }
+.node-text { display: flex; flex-direction: column; min-width: 0; }
+.node-day { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.node-name { font-family: var(--serif); font-size: 21px; line-height: 1.15; font-weight: 500; }
+.node-btn.locked .node-name { color: var(--muted); }
+.node-lock { font-size: 12px; color: var(--muted); }
+
+.rail-foot { margin-top: auto; font-size: 13px; color: var(--muted); }
+.rail-foot a { color: var(--lav); }
+
+/* Topbar (phones) */
+.topbar {
+  display: none;
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30;
+  align-items: center; justify-content: space-between; gap: 12px;
+  padding-block: 12px; padding-inline: 16px;
+  background: rgba(18, 11, 28, 0.95);
+  border-bottom: 1px solid var(--line);
+}
+.topbar .t { font-family: var(--serif); font-size: 21px; font-weight: 500; }
+.topbar .t em { color: var(--gold); }
+.menu-btn {
+  background: var(--surface-2); color: var(--fg);
+  border: 1px solid var(--line); border-radius: 10px;
+  padding: 8px 14px; font-size: 14px; cursor: pointer;
+}
+.scrim { display: none; }
+
+/* Main */
+.main { min-width: 0; padding-block: 56px 96px; padding-inline: clamp(16px, 5vw, 72px); }
+.panel { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px; }
+.eyebrow { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pink); margin: 0 0 10px; }
+.panel h1 {
+  font-family: var(--serif); font-weight: 500; font-style: italic;
+  font-size: clamp(54px, 9vw, 88px); line-height: 0.95; margin: 0;
+  text-wrap: balance;
+}
+.lede { font-size: 18px; color: var(--muted); margin: 18px 0 0; max-width: 60ch; }
+
+.flow { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; counter-reset: step; }
+.flow li {
+  counter-increment: step;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; color: var(--muted);
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 6px 12px 6px 6px;
+}
+.flow li::before {
+  content: counter(step);
+  display: inline-grid; place-items: center;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--surface-2); color: var(--lav); font-size: 12px; font-weight: 600;
+}
+
+.block { display: flex; flex-direction: column; gap: 14px; }
+.block h2 { font-family: var(--serif); font-weight: 500; font-size: 34px; line-height: 1.1; margin: 0; text-wrap: balance; }
+.step-tag { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lav); }
+.block p { margin: 0; max-width: 62ch; }
+.block p + p { margin-top: 2px; }
+
+.audio-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.audio-card .a-title { font-family: var(--serif); font-size: 24px; font-weight: 500; line-height: 1.15; }
+.audio-card .a-meta { font-size: 13px; color: var(--muted); }
+.audio-card audio { width: 100%; }
+.soon {
+  display: inline-flex; align-self: flex-start;
+  font-size: 13px; color: var(--muted);
+  border: 1px dashed var(--line); border-radius: 999px; padding: 6px 14px;
+}
+
+.anchor {
+  border: 1px solid rgba(233, 196, 124, 0.45);
+  background: linear-gradient(160deg, rgba(233, 196, 124, 0.12), rgba(200, 166, 244, 0.05));
+  border-radius: 18px;
+  padding: 26px 24px;
+  text-align: center;
+}
+.anchor .k { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+.anchor .v { font-family: var(--serif); font-size: clamp(24px, 4.4vw, 32px); line-height: 1.25; margin-top: 8px; }
+.anchor .v em { color: var(--gold); }
+
+.ritual { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; counter-reset: r; }
+.ritual li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; counter-increment: r; }
+.ritual li::before {
+  content: counter(r);
+  font-family: var(--serif); font-size: 22px; color: var(--gold); line-height: 1.2; text-align: right;
+}
+.ritual li p { margin: 0; }
+.say { font-family: var(--serif); font-size: 21px; font-style: italic; color: var(--fg); }
+
+.check {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 12px; padding: 14px 16px; cursor: pointer;
+}
+.check input { width: 20px; height: 20px; accent-color: var(--gold); margin: 0; flex: none; }
+.check span { font-size: 15px; }
+.check.on { border-color: rgba(233, 196, 124, 0.5); }
+
+.prompt-box {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+  overflow: hidden;
+}
+.prompt-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--surface-2);
+}
+.prompt-head span { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.prompt-text {
+  margin: 0; padding: 16px; white-space: pre-wrap; word-wrap: break-word;
+  font-family: var(--sans); font-size: 14px; line-height: 1.6; color: var(--fg);
+  max-height: 320px; overflow-y: auto;
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border-radius: 999px; padding: 10px 18px; font-size: 14px; font-weight: 600;
+  cursor: pointer; border: 1px solid transparent; text-decoration: none;
+}
+.btn-pink { background: var(--pink); color: #1a0b16; }
+.btn-pink:hover { filter: brightness(1.08); }
+.btn-ghost { background: transparent; color: var(--fg); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--lav); }
+.btn-small { padding: 7px 14px; font-size: 13px; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.signoff { border-top: 1px solid var(--line); padding-top: 28px; }
+.signoff p { margin: 0; font-family: var(--serif); font-size: 24px; font-style: italic; line-height: 1.35; }
+.signoff .name { color: var(--gold); font-style: normal; font-size: 20px; margin-top: 6px; }
+
+/* My Why */
+.why-area {
+  width: 100%; min-height: 340px; resize: vertical;
+  background: var(--surface); color: var(--fg);
+  border: 1px solid var(--line); border-radius: 16px;
+  padding: 22px; font-family: var(--serif); font-size: 21px; line-height: 1.55;
+}
+.why-area::placeholder { color: var(--muted); opacity: 0.8; }
+.why-area:focus { border-color: var(--gold); outline: none; }
+.status { font-size: 13px; color: var(--muted); min-height: 1.4em; }
+.note { font-size: 13px; color: var(--muted); }
+
+/* Locked */
+.locked-card {
+  border: 1px dashed var(--line); border-radius: 18px; padding: 28px 24px;
+  background: rgba(27, 17, 40, 0.6);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.locked-card strong { font-family: var(--serif); font-size: 24px; font-weight: 500; }
+.locked-card p { margin: 0; color: var(--muted); }
+
+/* Step tabs */
+.steps { display: flex; flex-direction: column; gap: 28px; }
+.tabs {
+  display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+  padding-bottom: 4px; margin-inline: -2px; padding-inline: 2px;
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  padding-top: 10px; background: var(--bg);
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex: none; display: inline-flex; align-items: center; gap: 8px;
+  font-size: 14px; color: var(--muted); background: transparent;
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 7px 14px 7px 7px; cursor: pointer; white-space: nowrap;
+}
+.tab:hover { color: var(--fg); border-color: var(--lav); }
+.tab-num {
+  display: inline-grid; place-items: center;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--surface-2); color: var(--lav); font-size: 12px; font-weight: 600;
+}
+.tab.seen .tab-num { background: var(--gold-soft); color: var(--gold); }
+.tab[aria-selected="true"] { color: #1a0b16; background: var(--pink); border-color: var(--pink); font-weight: 600; }
+.tab[aria-selected="true"] .tab-num { background: rgba(26, 11, 22, 0.2); color: #1a0b16; }
+.step-nav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; border-top: 1px solid var(--line); padding-top: 22px; margin-top: 10px; }
+.step-nav .btn-pink { margin-left: auto; }
+@media (max-width: 820px) { .tabs { top: calc(58px + env(safe-area-inset-top, 0px)); } }
+
+[hidden] { display: none !important; }
+
+@media (max-width: 820px) {
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .topbar { display: flex; }
+  .rail {
+    position: fixed; top: 0; left: 0; bottom: 0; z-index: 50;
+    width: min(86vw, 320px); height: 100%;
+    padding-top: calc(28px + env(safe-area-inset-top, 0px));
+    transform: translateX(-102%); transition: transform 0.25s ease;
+    background: var(--bg);
+  }
+  .rail.open { transform: translateX(0); }
+  .scrim.open { display: block; position: fixed; inset: 0; z-index: 40; background: rgba(0, 0, 0, 0.55); }
+  .main { padding-block: 32px 72px; }
+  .block h2 { font-size: 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rail { transition: none; }
+}
+</style>
+</head>
+<body>
+
+
+<div class="topbar">
+  <span class="t">Wealthy CEO <em>Timeline</em></span>
+  <button class="menu-btn" id="menuBtn" type="button" aria-controls="rail" aria-expanded="false">Days</button>
+</div>
+<div class="scrim" id="scrim"></div>
+
+<div class="shell">
+  <nav class="rail" id="rail" aria-label="Timeline">
+    <div class="brand">
+      <span class="brand-kicker">Embody Wealth</span>
+      <p class="brand-title">Wealthy CEO <em>Timeline</em></p>
+    </div>
+
+    <button class="why-link" id="navWhy" type="button" data-panel="why">
+      <span class="sigil" aria-hidden="true">✦</span>
+      <span class="lbl"><strong>My Why</strong><span>Read it every day</span></span>
+    </button>
+
+    <div>
+      <p class="timeline-label">Your 7 days</p>
+      <ol class="timeline" id="timeline"></ol>
+    </div>
+
+    <div class="rail-foot">
+      <a href="https://www.skool.com/embody-wealth" target="_blank" rel="noopener">Back to the community</a>
+    </div>
+  </nav>
+
+  <main class="main" id="main">
+
+    <!-- DAY 1 -->
+    <section class="panel" id="panel-day1" data-panel-id="day1" aria-labelledby="h-day1">
+      <header>
+        <p class="eyebrow">Day 1 of 7</p>
+        <h1 id="h-day1">Decide</h1>
+        <p class="lede">Today you choose her. You choose the timeline. And you anchor it in your body so it's there for the rest of the week.</p>
+      </header>
+
+      <div class="steps" data-day="1">
+      <div class="tabs" role="tablist" aria-label="Today's steps">
+        <button class="tab" role="tab" type="button" id="d1-tab-0" aria-controls="d1-step-0" data-step="0"><span class="tab-num">1</span>Activation</button>
+        <button class="tab" role="tab" type="button" id="d1-tab-1" aria-controls="d1-step-1" data-step="1"><span class="tab-num">2</span>Your portal</button>
+        <button class="tab" role="tab" type="button" id="d1-tab-2" aria-controls="d1-step-2" data-step="2"><span class="tab-num">3</span>Pour out your why</button>
+        <button class="tab" role="tab" type="button" id="d1-tab-3" aria-controls="d1-step-3" data-step="3"><span class="tab-num">4</span>Hypnosis</button>
+        <button class="tab" role="tab" type="button" id="d1-tab-4" aria-controls="d1-step-4" data-step="4"><span class="tab-num">5</span>Share it</button>
+      </div>
+
+
+      <div class="block step-panel" role="tabpanel" id="d1-step-0" aria-labelledby="d1-tab-0" data-step="0">
+        <span class="step-tag">Start here</span>
+        <h2>Listen to the activation</h2>
+        <p>Find a spot where you can close your eyes for part of it. Have something to step over or a doorway nearby, because you'll go through your portal at the end.</p>
+        <div class="audio-card" data-audio="1-activation">
+          <div class="a-title">Day 1 Activation: Decide</div>
+          <div class="a-meta">Audio activation · 21 min</div>
+        </div>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d1-step-1" aria-labelledby="d1-tab-1" data-step="1">
+        <span class="step-tag">Embodiment practice</span>
+        <h2>Walk through your portal</h2>
+        <p>Treat this like a ritual. Pick your portal: a scarf, ribbon or strip of tape on the floor, or a doorway in your home or office you walk through with intention. Both timelines exist for you. The decisions you make take you onto one.</p>
+        <ol class="ritual">
+          <li><p>Stand in front of your portal, in the timeline you're in right now. Feel your feet on the ground.</p></li>
+          <li><p>One hand on your solar plexus, one on your heart. Take a deep breath and let it go.</p></li>
+          <li><p>Say your why out loud. No rehearsing. <span class="say">"I'm building this..."</span></p></li>
+          <li><p>Then say <span class="say">"I've decided. This is my timeline."</span> And step through as her.</p></li>
+          <li><p>Notice how it feels in your body. That's her.</p></li>
+        </ol>
+        <div class="anchor">
+          <div class="k">Your anchor all week</div>
+          <div class="v">Hand on your solar plexus. One breath.<br><em>"I've decided."</em></div>
+        </div>
+        <p>Every morning for the next six days, go through your portal before anything else. The more you notice that feeling, the more familiar she becomes to your body, so your decisions and actions come from her frequency.</p>
+        <label class="check" id="check-1-wrap"><input type="checkbox" id="portal-1" data-portal="1"><span>I went through my portal today</span></label>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d1-step-2" aria-labelledby="d1-tab-2" data-step="2">
+        <span class="step-tag">Before the hypnosis</span>
+        <h2>Pour out your why</h2>
+        <p>Open Claude or ChatGPT and tap the voice button. Talk. Dump everything in without editing or stopping. Close your eyes if it helps. When you speak without a filter, that's where the real passion is.</p>
+        <p>Then copy this prompt and paste it in with your voice note. It arranges your words without changing them, so you get something to read back to yourself.</p>
+        <div class="prompt-box">
+          <div class="prompt-head">
+            <span>Your why prompt</span>
+            <button class="btn btn-pink btn-small" type="button" id="copyPrompt">Copy prompt</button>
+          </div>
+          <pre class="prompt-text" id="promptText">I just spoke a voice note about why I'm building my business and the life I'm creating. Please arrange my words into something I can read back to myself every day.
+
+How to arrange it:
+- Use my words. Don't add new ideas and don't swap my phrases for fancier ones. It should still sound like me talking.
+- Take out filler, repeats and false starts (um, like, you know, I mean).
+- Keep it in first person, me speaking to myself.
+- Put it in an order that flows: why I want this life, why this business, the life I'm building, and how it feels to live it.
+- Short paragraphs. No headings, no bullet points, no dashes.
+- Keep it under 400 words.
+- Give me only the arranged text, with nothing before or after it.
+
+Here's my voice note:</pre>
+        </div>
+        <p>Paste what comes back into your My Why page. Read it every day for the next seven days, and change it whenever new things come in.</p>
+        <div class="btn-row">
+          <button class="btn btn-ghost" type="button" data-goto="why">Open My Why</button>
+        </div>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d1-step-3" aria-labelledby="d1-tab-3" data-step="3">
+        <span class="step-tag">Then</span>
+        <h2>Meet her</h2>
+        <p>This is where you meet her and walk all the way to Day 7 together. Listen to this one daily.</p>
+        <div class="audio-card" data-audio="1-hypnosis">
+          <div class="a-title">Day 1 Hypnosis: Meet Her</div>
+          <div class="a-meta">Hypnosis · 23 min · listen daily through Day 7</div>
+        </div>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d1-step-4" aria-labelledby="d1-tab-4" data-step="4">
+        <span class="step-tag">Share it</span>
+        <h2>Announce your why</h2>
+        <p>Let us feel why you're choosing this life, why you're building your business and creating impact. Drop it in the community thread.</p>
+        <div class="btn-row">
+          <a class="btn btn-pink" href="https://www.skool.com/embody-wealth" target="_blank" rel="noopener">Share in Embody Wealth</a>
+        </div>
+
+        <div class="signoff">
+          <p>I believe in you. To living our dreams.</p>
+          <p class="name">Aurailia ✦</p>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- MY WHY -->
+    <section class="panel" id="panel-why" data-panel-id="why" aria-labelledby="h-why" hidden>
+      <header>
+        <p class="eyebrow">Read it every day</p>
+        <h1 id="h-why">My Why</h1>
+        <p class="lede">Read this after you walk through your portal. It's yours, so change it whenever new things come in.</p>
+      </header>
+
+      <div class="block">
+        <label for="whyText" class="step-tag">Your why, in your words</label>
+        <textarea class="why-area" id="whyText" placeholder="Paste what Claude or ChatGPT gave you back here. Or just start writing. I'm building this..."></textarea>
+        <div class="status" id="whyStatus" aria-live="polite"></div>
+        <div class="btn-row">
+          <button class="btn btn-pink" type="button" id="copyWhy">Copy my why</button>
+          <button class="btn btn-ghost" type="button" id="clearWhy">Clear</button>
+        </div>
+        <p class="note">This saves in this browser on this device. Tap Copy my why now and then to keep a backup in your notes.</p>
+      </div>
+
+      <div class="anchor">
+        <div class="k">Before you read</div>
+        <div class="v">Hand on your solar plexus. One breath.<br><em>"I've decided."</em></div>
+      </div>
+    </section>
+
+    <div id="lockedPanels"></div>
+  </main>
+</div>
+
+<script>
+/* Change this number to open the next day */
+var UNLOCKED_THROUGH = 1;
+
+/* Paste Dropbox links here. Use raw=1 and remove any &st= part */
+var AUDIO = {
+  "1-activation": "audio/day1-activation.mp3",
+  "1-hypnosis": "audio/day1-meet-her.mp3"
+};
+
+var DAYS = [
+  { n: 1, name: "Decide", teaser: "Choose the timeline and anchor it in your body." },
+  { n: 2, name: "Want It All", teaser: "Desire without the apology. What she really wants, said out loud with nothing shrunk down." },
+  { n: 3, name: "Rewrite Who You Are", teaser: "The old story gets replaced with the woman who already does this." },
+  { n: 4, name: "Already Mine", teaser: "The money, the clients and the ease already belong to her timeline. You practice receiving them." },
+  { n: 5, name: "Her Standards", teaser: "What she no longer tolerates. Raising the floor." },
+  { n: 6, name: "Seen and Paid", teaser: "She sells from overflow. Being visible feels like sharing what's already full." },
+  { n: 7, name: "It's Done", teaser: "Living from the end, and carrying her through the rest of the month." }
+];
+
+var WHY_KEY = "wct-my-why";
+var currentPanel = "day1";
+var clearConfirming = false;
+var clearTimer = null;
+var saveTimer = null;
+
+function safeGet(key) {
+  try { return window.localStorage.getItem(key); } catch (e) { return null; }
+}
+function safeSet(key, val) {
+  try { window.localStorage.setItem(key, val); return true; } catch (e) { return false; }
+}
+function el(tag, cls, text) {
+  var node = document.createElement(tag);
+  if (cls) { node.className = cls; }
+  if (text) { node.textContent = text; }
+  return node;
+}
+function portalDone(n) { return safeGet("wct-portal-" + n) === "1"; }
+
+function buildNav() {
+  var list = document.getElementById("timeline");
+  while (list.firstChild) { list.removeChild(list.firstChild); }
+  for (var i = 0; i < DAYS.length; i++) {
+    var d = DAYS[i];
+    var li = el("li");
+    var btn = el("button", "node-btn");
+    btn.type = "button";
+    btn.setAttribute("data-panel", "day" + d.n);
+    if (d.n <= UNLOCKED_THROUGH) { btn.className += " open"; } else { btn.className += " locked"; }
+    if (portalDone(d.n)) { btn.className += " done"; }
+    var dot = el("span", "dot");
+    dot.setAttribute("aria-hidden", "true");
+    var txt = el("span", "node-text");
+    txt.appendChild(el("span", "node-day", "Day " + d.n));
+    txt.appendChild(el("span", "node-name", d.name));
+    if (d.n > UNLOCKED_THROUGH) { txt.appendChild(el("span", "node-lock", "Opens soon")); }
+    btn.appendChild(dot);
+    btn.appendChild(txt);
+    btn.addEventListener("click", onNavClick);
+    li.appendChild(btn);
+    list.appendChild(li);
+  }
+  markCurrent();
+}
+
+function buildLockedPanels() {
+  var wrap = document.getElementById("lockedPanels");
+  for (var i = 0; i < DAYS.length; i++) {
+    var d = DAYS[i];
+    if (d.n === 1) { continue; }
+    if (document.getElementById("panel-day" + d.n)) { continue; }
+    var sec = el("section", "panel");
+    sec.id = "panel-day" + d.n;
+    sec.setAttribute("data-panel-id", "day" + d.n);
+    sec.hidden = true;
+    var head = el("header");
+    head.appendChild(el("p", "eyebrow", "Day " + d.n + " of 7"));
+    head.appendChild(el("h1", null, d.name));
+    head.appendChild(el("p", "lede", d.teaser));
+    sec.appendChild(head);
+    var card = el("div", "locked-card");
+    card.appendChild(el("strong", null, d.n <= UNLOCKED_THROUGH ? "Coming in today" : "This day opens soon"));
+    card.appendChild(el("p", null, "Keep walking through your portal every morning and reading your why. She's getting more familiar every day."));
+    sec.appendChild(card);
+    wrap.appendChild(sec);
+  }
+}
+
+function onNavClick(e) {
+  var id = e.currentTarget.getAttribute("data-panel");
+  showPanel(id);
+  closeDrawer();
+}
+
+function showPanel(id) {
+  var target = document.getElementById("panel-" + id);
+  if (!target) { return; }
+  var panels = document.querySelectorAll(".panel");
+  for (var i = 0; i < panels.length; i++) { panels[i].hidden = true; }
+  target.hidden = false;
+  currentPanel = id;
+  markCurrent();
+  try { history.replaceState(null, "", "#" + id); } catch (e) {}
+  window.scrollTo(0, 0);
+}
+
+function markCurrent() {
+  var btns = document.querySelectorAll("[data-panel]");
+  for (var i = 0; i < btns.length; i++) {
+    if (btns[i].getAttribute("data-panel") === currentPanel) {
+      btns[i].setAttribute("aria-current", "true");
+    } else {
+      btns[i].removeAttribute("aria-current");
+    }
+  }
+}
+
+function setupAudio() {
+  var cards = document.querySelectorAll("[data-audio]");
+  for (var i = 0; i < cards.length; i++) {
+    var key = cards[i].getAttribute("data-audio");
+    var src = AUDIO[key];
+    if (src) {
+      var a = document.createElement("audio");
+      a.controls = true;
+      a.preload = "metadata";
+      a.src = src;
+      cards[i].appendChild(a);
+    } else {
+      cards[i].appendChild(el("span", "soon", "Audio coming soon"));
+    }
+  }
+}
+
+function setupPortals() {
+  var boxes = document.querySelectorAll("[data-portal]");
+  for (var i = 0; i < boxes.length; i++) {
+    var n = boxes[i].getAttribute("data-portal");
+    boxes[i].checked = portalDone(n);
+    syncCheck(boxes[i]);
+    boxes[i].addEventListener("change", onPortalChange);
+  }
+}
+function onPortalChange(e) {
+  var box = e.currentTarget;
+  safeSet("wct-portal-" + box.getAttribute("data-portal"), box.checked ? "1" : "0");
+  syncCheck(box);
+  buildNav();
+}
+function syncCheck(box) {
+  var wrap = box.parentNode;
+  if (box.checked) { wrap.classList.add("on"); } else { wrap.classList.remove("on"); }
+}
+
+function copyText(text, btn, doneLabel, fallbackEl) {
+  var original = btn.textContent;
+  var done = function (ok) {
+    btn.textContent = ok ? doneLabel : "Select and copy";
+    setTimeout(function () { btn.textContent = original; }, 2000);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function () { done(true); }, function () { selectFallback(fallbackEl); done(false); });
+  } else {
+    selectFallback(fallbackEl);
+    done(false);
+  }
+}
+function selectFallback(node) {
+  if (!node) { return; }
+  if (node.select) { node.focus(); node.select(); return; }
+  var range = document.createRange();
+  range.selectNodeContents(node);
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+}
+
+function setupWhy() {
+  var area = document.getElementById("whyText");
+  var status = document.getElementById("whyStatus");
+  var saved = safeGet(WHY_KEY);
+  if (saved) {
+    area.value = saved;
+    var when = safeGet(WHY_KEY + "-date");
+    status.textContent = when ? "Last updated " + when : "";
+  }
+  area.addEventListener("input", function () {
+    status.textContent = "Saving...";
+    if (saveTimer) { clearTimeout(saveTimer); }
+    saveTimer = setTimeout(saveWhy, 500);
+  });
+  document.getElementById("copyWhy").addEventListener("click", function (e) {
+    copyText(area.value, e.currentTarget, "Copied", area);
+  });
+  document.getElementById("clearWhy").addEventListener("click", onClearWhy);
+}
+function saveWhy() {
+  var area = document.getElementById("whyText");
+  var status = document.getElementById("whyStatus");
+  var stamp = new Date().toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  var ok = safeSet(WHY_KEY, area.value);
+  safeSet(WHY_KEY + "-date", stamp);
+  status.textContent = ok ? "Saved · " + stamp : "Couldn't save in this browser. Copy your why to keep it safe.";
+}
+function onClearWhy(e) {
+  var btn = e.currentTarget;
+  if (!clearConfirming) {
+    clearConfirming = true;
+    btn.textContent = "Tap again to clear";
+    clearTimer = setTimeout(resetClear, 4000);
+    return;
+  }
+  clearTimeout(clearTimer);
+  document.getElementById("whyText").value = "";
+  saveWhy();
+  resetClear();
+}
+function resetClear() {
+  clearConfirming = false;
+  document.getElementById("clearWhy").textContent = "Clear";
+}
+
+function setupSteps() {
+  var groups = document.querySelectorAll(".steps");
+  for (var g = 0; g < groups.length; g++) { initStepGroup(groups[g]); }
+}
+function initStepGroup(group) {
+  var day = group.getAttribute("data-day");
+  var tabs = group.querySelectorAll(".tab");
+  var panels = group.querySelectorAll(".step-panel");
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].addEventListener("click", onTabClick);
+    tabs[i].addEventListener("keydown", onTabKey);
+  }
+  for (var j = 0; j < panels.length; j++) {
+    var nav = el("div", "step-nav");
+    if (j > 0) {
+      var back = el("button", "btn btn-ghost", "Back");
+      back.type = "button";
+      back.setAttribute("data-day", day);
+      back.setAttribute("data-to", String(j - 1));
+      back.addEventListener("click", onStepJump);
+      nav.appendChild(back);
+    }
+    if (j < panels.length - 1) {
+      var label = tabs[j + 1].textContent.replace(/^\d+/, "");
+      var next = el("button", "btn btn-pink", "Next: " + label + " \u2192");
+      next.type = "button";
+      next.setAttribute("data-day", day);
+      next.setAttribute("data-to", String(j + 1));
+      next.addEventListener("click", onStepJump);
+      nav.appendChild(next);
+    }
+    panels[j].appendChild(nav);
+  }
+  var savedStep = parseInt(safeGet("wct-step-" + day) || "0", 10);
+  if (isNaN(savedStep) || savedStep < 0 || savedStep >= panels.length) { savedStep = 0; }
+  var seen = (safeGet("wct-seen-" + day) || "").split(",");
+  for (var k = 0; k < tabs.length; k++) {
+    if (seen.indexOf(String(k)) > -1) { tabs[k].classList.add("seen"); }
+  }
+  showStep(day, savedStep, false);
+}
+function onTabClick(e) {
+  var t = e.currentTarget;
+  showStep(t.closest(".steps").getAttribute("data-day"), parseInt(t.getAttribute("data-step"), 10), false);
+}
+function onTabKey(e) {
+  if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") { return; }
+  var t = e.currentTarget;
+  var group = t.closest(".steps");
+  var count = group.querySelectorAll(".tab").length;
+  var cur = parseInt(t.getAttribute("data-step"), 10);
+  var nxt = e.key === "ArrowRight" ? Math.min(count - 1, cur + 1) : Math.max(0, cur - 1);
+  showStep(group.getAttribute("data-day"), nxt, false);
+  group.querySelectorAll(".tab")[nxt].focus();
+}
+function onStepJump(e) {
+  var b = e.currentTarget;
+  showStep(b.getAttribute("data-day"), parseInt(b.getAttribute("data-to"), 10), true);
+}
+function showStep(day, idx, scroll) {
+  var group = document.querySelector('.steps[data-day="' + day + '"]');
+  if (!group) { return; }
+  var tabs = group.querySelectorAll(".tab");
+  var panels = group.querySelectorAll(".step-panel");
+  for (var i = 0; i < panels.length; i++) {
+    var on = i === idx;
+    panels[i].hidden = !on;
+    tabs[i].setAttribute("aria-selected", on ? "true" : "false");
+    tabs[i].tabIndex = on ? 0 : -1;
+  }
+  tabs[idx].classList.add("seen");
+  tabs[idx].scrollIntoView({ block: "nearest", inline: "nearest" });
+  safeSet("wct-step-" + day, String(idx));
+  var seen = (safeGet("wct-seen-" + day) || "").split(",");
+  if (seen.indexOf(String(idx)) < 0) { seen.push(String(idx)); safeSet("wct-seen-" + day, seen.join(",")); }
+  if (scroll) {
+    var top = group.getBoundingClientRect().top + window.pageYOffset - 70;
+    window.scrollTo(0, Math.max(0, top));
+  }
+}
+
+function openDrawer() {
+  document.getElementById("rail").classList.add("open");
+  document.getElementById("scrim").classList.add("open");
+  document.getElementById("menuBtn").setAttribute("aria-expanded", "true");
+}
+function closeDrawer() {
+  document.getElementById("rail").classList.remove("open");
+  document.getElementById("scrim").classList.remove("open");
+  document.getElementById("menuBtn").setAttribute("aria-expanded", "false");
+}
+function toggleDrawer() {
+  if (document.getElementById("rail").classList.contains("open")) { closeDrawer(); } else { openDrawer(); }
+}
+
+function init() {
+  buildLockedPanels();
+  buildNav();
+  setupAudio();
+  setupPortals();
+  setupWhy();
+  setupSteps();
+  document.getElementById("navWhy").addEventListener("click", onNavClick);
+  document.getElementById("menuBtn").addEventListener("click", toggleDrawer);
+  document.getElementById("scrim").addEventListener("click", closeDrawer);
+  document.getElementById("copyPrompt").addEventListener("click", function (e) {
+    var pre = document.getElementById("promptText");
+    copyText(pre.textContent, e.currentTarget, "Copied", pre);
+  });
+  var gotos = document.querySelectorAll("[data-goto]");
+  for (var i = 0; i < gotos.length; i++) {
+    gotos[i].addEventListener("click", function (ev) { showPanel(ev.currentTarget.getAttribute("data-goto")); });
+  }
+  var hash = (location.hash || "").replace("#", "");
+  if (hash && document.getElementById("panel-" + hash)) { showPanel(hash); } else { markCurrent(); }
+}
+
+init();
+</script>
+
+</body>
+</html>
