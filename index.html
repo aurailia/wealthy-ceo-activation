@@ -478,10 +478,10 @@ Here's my voice note:</pre>
 /* Change this number to open the next day */
 var UNLOCKED_THROUGH = 1;
 
-/* Paste Dropbox links here. Use raw=1 and remove any &st= part */
+/* Audio files. The page tries each path in order. A Dropbox link (raw=1, no &st=) also works here. */
 var AUDIO = {
-  "1-activation": "audio/day1-activation.mp3",
-  "1-hypnosis": "audio/day1-meet-her.mp3"
+  "1-activation": ["https://www.dropbox.com/scl/fi/zuizn8fcnjucvhjhdwpy7/day1-activation.mp3?rlkey=6yz5gs373ygwznj7mjkfulygg&raw=1", "audio/day1-activation.mp3", "day1-activation.mp3", "audio/wealthy_CEO_Day_1.mp3", "wealthy_CEO_Day_1.mp3"],
+  "1-hypnosis": ["https://www.dropbox.com/scl/fi/ld2qsvmc5aewtjh69h5tn/day1-meet-her.mp3?rlkey=yxg8w4d778osehjwnz2zqsx79&raw=1", "audio/day1-meet-her.mp3", "day1-meet-her.mp3", "audio/wealthy_CEO_hypnosis.mp3", "wealthy_CEO_hypnosis.mp3"]
 };
 
 var DAYS = [
@@ -596,17 +596,32 @@ function setupAudio() {
   var cards = document.querySelectorAll("[data-audio]");
   for (var i = 0; i < cards.length; i++) {
     var key = cards[i].getAttribute("data-audio");
-    var src = AUDIO[key];
-    if (src) {
-      var a = document.createElement("audio");
-      a.controls = true;
-      a.preload = "metadata";
-      a.src = src;
-      cards[i].appendChild(a);
-    } else {
+    var srcs = AUDIO[key];
+    if (typeof srcs === "string") { srcs = srcs ? [srcs] : []; }
+    if (!srcs || !srcs.length) {
       cards[i].appendChild(el("span", "soon", "Audio coming soon"));
+      continue;
     }
+    var a = document.createElement("audio");
+    a.controls = true;
+    a.preload = "metadata";
+    var lastSource = null;
+    for (var j = 0; j < srcs.length; j++) {
+      var source = document.createElement("source");
+      source.src = srcs[j];
+      source.type = "audio/mpeg";
+      a.appendChild(source);
+      lastSource = source;
+    }
+    var msg = el("span", "soon", "This audio didn't load. Refresh the page, and if it still won't play, let Aurailia know.");
+    msg.hidden = true;
+    lastSource.addEventListener("error", makeAudioFail(a, msg));
+    cards[i].appendChild(a);
+    cards[i].appendChild(msg);
   }
+}
+function makeAudioFail(player, msg) {
+  return function () { player.hidden = true; msg.hidden = false; };
 }
 
 function setupPortals() {
