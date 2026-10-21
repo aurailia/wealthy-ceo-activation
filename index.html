@@ -288,6 +288,56 @@ button { font-family: inherit; }
 .step-nav .btn-pink { margin-left: auto; }
 @media (max-width: 820px) { .tabs { top: calc(58px + env(safe-area-inset-top, 0px)); } }
 
+.tap-h { font-family: var(--serif); font-weight: 500; font-size: 24px; line-height: 1.2; margin: 14px 0 0; color: var(--gold); }
+.tap-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.tap-list li { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 14px; padding: 11px 16px; border-top: 1px solid var(--line); }
+.tap-list li:first-child { border-top: 0; }
+.tap-pt { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--lav); font-weight: 600; padding-top: 3px; }
+.tap-say { font-family: var(--serif); font-size: 20px; line-height: 1.4; }
+.tap-where { color: var(--muted); font-size: 15px; }
+.tap-breath { font-size: 14px; color: var(--muted); font-style: italic; }
+@media (max-width: 480px) { .tap-list li { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+
+.dq { display: flex; flex-direction: column; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
+.dq-q { font-family: var(--serif); font-size: 24px; font-weight: 500; line-height: 1.2; }
+.dq-hint { color: var(--muted); font-size: 15px; }
+.dq-area { width: 100%; min-height: 110px; resize: vertical; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 12px; padding: 14px; font-family: var(--serif); font-size: 19px; line-height: 1.5; }
+.dq-area:focus, .money-in:focus { border-color: var(--gold); outline: none; }
+.money-row { display: flex; align-items: center; gap: 8px; }
+.money-row .per { font-family: var(--sans); font-size: 16px; color: var(--muted); }
+.money-row span:first-child { font-family: var(--serif); font-size: 30px; color: var(--gold); }
+.money-in { flex: 1; min-width: 0; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; font-family: var(--serif); font-size: 28px; font-variant-numeric: tabular-nums; }
+.dbl { border-left: 2px solid var(--gold); padding: 4px 0 4px 16px; display: flex; flex-direction: column; gap: 4px; }
+.dbl-k { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+.dbl-amt { font-family: var(--serif); font-size: clamp(34px, 7vw, 48px); line-height: 1.1; color: var(--fg); font-variant-numeric: tabular-nums; }
+.dq button { align-self: flex-start; }
+.dq-final { border-color: rgba(233, 196, 124, 0.45); background: var(--gold-soft); }
+
+.pick-list { display: flex; flex-direction: column; gap: 8px; }
+.pick-item { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; align-items: start; width: 100%; text-align: left; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; cursor: pointer; font-family: var(--serif); font-size: 19px; line-height: 1.4; }
+.pick-item:hover { border-color: var(--lav); }
+.pick-box { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--line); margin-top: 2px; display: grid; place-items: center; font-family: var(--sans); font-size: 12px; font-weight: 700; color: #1a0b16; }
+.pick-item[aria-pressed="true"] { border-color: var(--gold); background: var(--gold-soft); }
+.pick-item[aria-pressed="true"] .pick-box { background: var(--gold); border-color: var(--gold); }
+.pick-empty { color: var(--muted); font-size: 15px; }
+.mirror-picks { display: flex; flex-direction: column; gap: 12px; }
+.mirror-card { border: 1px solid rgba(233, 196, 124, 0.45); background: linear-gradient(160deg, rgba(233, 196, 124, 0.12), rgba(200, 166, 244, 0.05)); border-radius: 18px; padding: 22px 22px; }
+.mirror-card .k { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+.mirror-card .v { font-family: var(--serif); font-size: clamp(24px, 4.6vw, 32px); line-height: 1.25; margin-top: 6px; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.tap-ctrl { display: flex; flex-direction: column; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; margin-top: 8px; }
+.tap-speed { display: flex; flex-wrap: wrap; gap: 8px; }
+.tap-speed .tab { padding: 7px 16px; }
+.pace-btn[aria-pressed="true"] { color: #1a0b16; background: var(--gold); border-color: var(--gold); font-weight: 600; }
+.tap-seq li, .tap-breath { transition: background 0.3s ease, opacity 0.3s ease; }
+.tap-running .tap-seq li, .tap-running .tap-breath { opacity: 0.45; }
+.tap-running .tap-seq li.tap-on, .tap-running .tap-breath.tap-on { opacity: 1; background: var(--gold-soft); }
+.tap-seq li.tap-on .tap-pt { color: var(--gold); }
+.tap-breath.tap-on { border-radius: 10px; padding: 8px 12px; color: var(--fg); }
+.tap-bar { position: sticky; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 6; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: var(--surface-2); border: 1px solid var(--gold); border-radius: 999px; padding: 8px 10px 8px 18px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35); }
+.tap-now { flex: 1; min-width: 0; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .tap-seq li, .tap-breath { transition: none; } }
+
 [hidden] { display: none !important; }
 
 @media (max-width: 820px) {
@@ -445,6 +495,273 @@ Here's my voice note:</pre>
       </div>
     </section>
 
+    <!-- DAY 2 -->
+    <section class="panel" id="panel-day2" data-panel-id="day2" aria-labelledby="h-day2" hidden>
+      <header>
+        <p class="eyebrow">Day 2 of 7</p>
+        <h1 id="h-day2">Want It All</h1>
+        <p class="lede">Today you let yourself want it. All of it. Out loud, with nothing shrunk down to sound reasonable.</p>
+      </header>
+
+      <div class="steps" data-day="2">
+      <div class="tabs" role="tablist" aria-label="Today's steps">
+        <button class="tab" role="tab" type="button" id="d2-tab-0" aria-controls="d2-step-0" data-step="0"><span class="tab-num">1</span>Portal + My Why</button>
+        <button class="tab" role="tab" type="button" id="d2-tab-1" aria-controls="d2-step-1" data-step="1"><span class="tab-num">2</span>Activation</button>
+        <button class="tab" role="tab" type="button" id="d2-tab-2" aria-controls="d2-step-2" data-step="2"><span class="tab-num">3</span>The Desire List</button>
+        <button class="tab" role="tab" type="button" id="d2-tab-3" aria-controls="d2-step-3" data-step="3"><span class="tab-num">4</span>The Mirror</button>
+        <button class="tab" role="tab" type="button" id="d2-tab-4" aria-controls="d2-step-4" data-step="4"><span class="tab-num">5</span>Clear the Wobble</button>
+        <button class="tab" role="tab" type="button" id="d2-tab-5" aria-controls="d2-step-5" data-step="5"><span class="tab-num">6</span>Meet Her</button>
+        <button class="tab" role="tab" type="button" id="d2-tab-6" aria-controls="d2-step-6" data-step="6"><span class="tab-num">7</span>Share It</button>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d2-step-0" aria-labelledby="d2-tab-0" data-step="0">
+        <span class="step-tag">Start here</span>
+        <h2>Walk through your portal</h2>
+        <p>Before your phone. Before your coffee. Stand in front of your portal, feel your feet on the ground, and step through as her.</p>
+        <div class="anchor">
+          <div class="k">Your anchor</div>
+          <div class="v">Hand on your solar plexus. One breath.<br><em>"I've decided."</em></div>
+        </div>
+        <label class="check"><input type="checkbox" id="portal-2" data-portal="2"><span>I went through my portal today</span></label>
+        <p>Then read your why. Out loud if you can. Let it remind you who you're doing this for.</p>
+        <div class="btn-row">
+          <button class="btn btn-ghost" type="button" data-goto="why">Read My Why</button>
+        </div>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d2-step-1" aria-labelledby="d2-tab-1" data-step="1">
+        <span class="step-tag">Listen</span>
+        <h2>Listen to the activation</h2>
+        <p>We shrink what we want. "I just want to be consistent. I just want enough to pay the bills." Today we stop doing that. Have your journal or this page open, because you'll start your Desire List right after.</p>
+        <div class="audio-card" data-audio="2-activation">
+          <div class="a-title">Day 2 Activation: Want It All</div>
+          <div class="a-meta">Audio activation · 21 min</div>
+        </div>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d2-step-2" aria-labelledby="d2-tab-2" data-step="2">
+        <span class="step-tag">Embodiment practice</span>
+        <h2>Write your Desire List</h2>
+        <p>Answer each one as her. There's no such thing as too big. You don't have to know how, and you don't have to justify any of it. Just go for it, and keep that buzzing energy as you write.</p>
+        <div class="dq">
+          <label class="dq-q" for="d2-year">How much money do you want to make this year?</label>
+          <p class="dq-hint">Write the real number. The one that excites you and also feels a little scary.</p>
+          <div class="money-row"><span aria-hidden="true">$</span><input type="text" inputmode="numeric" id="d2-year" class="money-in" data-save="wct-d2-year" data-money="year" placeholder="0" autocomplete="off"><span class="per">/year</span></div>
+          <div class="dbl" id="d2-year-x1" hidden>
+            <p class="dbl-k">Now double it</p>
+            <p class="dbl-amt" data-amt="year" data-mult="2"></p>
+            <p>Close your eyes. See that number in your bank account at the end of the year. Feel it in your body. Notice how amazing it feels to receive it.</p>
+          </div>
+          <div class="dbl" id="d2-year-x2" hidden>
+            <p class="dbl-k">And double it again</p>
+            <p class="dbl-amt" data-amt="year" data-mult="4"></p>
+            <p>Yeah, we're going big. Imagine you're turning up a dial on your desire. Breathe it into your solar plexus and let your whole body buzz with it.</p>
+          </div>
+          <button class="btn btn-pink btn-small" type="button" data-double="year" hidden>Double it</button>
+        </div>
+        <div class="dq">
+          <label class="dq-q" for="d2-month">How much do you want to make in a month?</label>
+          <p class="dq-hint">Write it, then feel it in your body before you double it.</p>
+          <div class="money-row"><span aria-hidden="true">$</span><input type="text" inputmode="numeric" id="d2-month" class="money-in" data-save="wct-d2-month" data-money="month" placeholder="0" autocomplete="off"><span class="per">/month</span></div>
+          <div class="dbl" id="d2-month-x1" hidden>
+            <p class="dbl-k">Now double it</p>
+            <p class="dbl-amt" data-amt="month" data-mult="2"></p>
+            <p>Close your eyes. See that number landing in your account every single month. Feel it in your body. Notice how amazing it feels to receive it.</p>
+          </div>
+          <div class="dbl" id="d2-month-x2" hidden>
+            <p class="dbl-k">And double it again</p>
+            <p class="dbl-amt" data-amt="month" data-mult="4"></p>
+            <p>Yeah, we're going big. Imagine you're turning up a dial on your desire. Breathe it into your solar plexus and let your whole body buzz with it.</p>
+          </div>
+          <button class="btn btn-pink btn-small" type="button" data-double="month" hidden>Double it</button>
+        </div>
+        <div class="dq">
+          <label class="dq-q" for="d2-business">Describe your business.</label>
+          <p class="dq-hint">How do you desire to run it? Where are you working from? How does it feel when it's flowing exactly the way you want?</p>
+          <textarea class="dq-area" id="d2-business" data-save="wct-d2-business"></textarea>
+        </div>
+        <div class="dq">
+          <label class="dq-q" for="d2-life">Where do you live? Where do you travel?</label>
+          <p class="dq-hint">See it in detail. The home, the view, the places you go.</p>
+          <textarea class="dq-area" id="d2-life" data-save="wct-d2-life"></textarea>
+        </div>
+        <div class="dq">
+          <label class="dq-q" for="d2-buy">What do you buy without looking at the price?</label>
+          <p class="dq-hint">The outfit, the trip, the thing you've always wanted.</p>
+          <textarea class="dq-area" id="d2-buy" data-save="wct-d2-buy"></textarea>
+        </div>
+        <div class="dq">
+          <label class="dq-q" for="d2-give">Who do you get to help? Who do you get to give money to?</label>
+          <p class="dq-hint">This one is so important. Who gets taken care of because you said yes to more?</p>
+          <textarea class="dq-area" id="d2-give" data-save="wct-d2-give"></textarea>
+        </div>
+        <div class="dq">
+          <label class="dq-q" for="d2-more">What else do you want?</label>
+          <p class="dq-hint">Anything you haven't written yet. Let it all out.</p>
+          <textarea class="dq-area" id="d2-more" data-save="wct-d2-more"></textarea>
+        </div>
+        <div class="dq dq-final">
+          <p class="dq-q">Bring it all together</p>
+          <p class="dq-hint">Tap the button and everything you wrote above lands in your Desire List. Then read through it. If you hear that little voice say "okay, that's a little much, don't be greedy," put a ♡ next to that one. That's the one she wants most.</p>
+          <button class="btn btn-pink" type="button" id="buildDesire">Bring it all together</button>
+        </div>
+        <label for="desireText" class="step-tag">My Desire List</label>
+        <textarea class="why-area" id="desireText" placeholder="Your Desire List lands here. You can add to it and edit it anytime."></textarea>
+        <div class="status" id="desireStatus" aria-live="polite"></div>
+        <div class="btn-row">
+          <button class="btn btn-pink" type="button" id="copyDesire">Copy my list</button>
+        </div>
+        <p class="note">This saves in this browser on this device. You'll come back to it all week, and again on Day 7.</p>
+        <div class="dq dq-final">
+          <p class="dq-q">Pick your three</p>
+          <p class="dq-hint">Tap the three desires that feel the biggest. The ones that make you a little nervous. They'll be waiting for you at the mirror.</p>
+          <div class="pick-list" id="pickList"></div>
+          <p class="status" id="pickStatus" aria-live="polite"></p>
+          <button class="btn btn-pink" type="button" id="toMirror">Take them to the mirror</button>
+        </div>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d2-step-3" aria-labelledby="d2-tab-3" data-step="3">
+        <span class="step-tag">Embodiment practice</span>
+        <h2>Say it in the mirror</h2>
+        <p>Here are the three desires you picked. Go stand in front of a mirror, look yourself in the eyes, and say each one out loud like her.</p>
+        <div class="mirror-picks" id="mirrorPicks"></div>
+        <ol class="ritual">
+          <li><p>Say each one out loud. <span class="say">"I want..."</span></p></li>
+          <li><p>Don't soften it. Don't add "if that's okay." Don't laugh it off. Say it like her.</p></li>
+          <li><p>If your throat, chest or belly tightens, put your hand there, breathe right into it, and say it again.</p></li>
+          <li><p>Keep saying it until it feels like yours.</p></li>
+        </ol>
+        <p>It might feel uncomfortable. That's you stretching. You're teaching your body it's safe to want this much, and the more familiar it gets, the closer she gets.</p>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d2-step-4" aria-labelledby="d2-tab-4" data-step="4">
+        <span class="step-tag">EFT tapping</span>
+        <h2>Clear the wobble</h2>
+        <p>If your throat, chest or belly tightened while you said your desires, this is for you. That wobble is just the old story trying to keep you small. We're going to tap it out, so all that's left is her.</p>
+        <h3 class="tap-h">What is tapping?</h3>
+        <p>EFT tapping is a simple way to calm your nervous system while you speak to what's coming up. You tap lightly on points on your face and body while you say the words out loud. Your body gets the message that it's safe, and the old feeling loses its grip.</p>
+        <p>Use two or three fingertips and tap gently, about five to seven times on each point. You can use one hand or both. There's no wrong way to do it.</p>
+        <h3 class="tap-h">Where to tap</h3>
+        <ul class="tap-list tap-where-list">
+          <li><span class="tap-pt">Karate chop</span><span class="tap-where">The fleshy outer edge of your hand, below your pinky. You tap here for the setup.</span></li>
+          <li><span class="tap-pt">Eyebrow</span><span class="tap-where">Where your eyebrow begins, right by the bridge of your nose.</span></li>
+          <li><span class="tap-pt">Side of eye</span><span class="tap-where">On the bone at the outer corner of your eye.</span></li>
+          <li><span class="tap-pt">Under eye</span><span class="tap-where">On the bone under your eye, about an inch below your pupil.</span></li>
+          <li><span class="tap-pt">Under nose</span><span class="tap-where">The small spot between your nose and your upper lip.</span></li>
+          <li><span class="tap-pt">Chin</span><span class="tap-where">The crease between your bottom lip and your chin.</span></li>
+          <li><span class="tap-pt">Collarbone</span><span class="tap-where">Just below where your collarbones meet, about an inch out to each side.</span></li>
+          <li><span class="tap-pt">Under arm</span><span class="tap-where">On your side, about four inches below your armpit. Around your bra line.</span></li>
+          <li><span class="tap-pt">Top of head</span><span class="tap-where">The crown, right at the top of your head.</span></li>
+        </ul>
+        <h3 class="tap-h">Check in first</h3>
+        <p>Bring up the desire with the ♡ next to it. Say it out loud. <span class="say">"I want..."</span></p>
+        <p>On a scale of 0 to 10, how strong is the wobble? That feeling of "am I being greedy, is this too much." Zero is nothing at all and 10 is really loud. Remember your number.</p>
+        <div class="tap-ctrl" id="tapCtrl">
+          <p class="dq-q">Tap along with me</p>
+          <p class="dq-hint">Tap Start and the page moves through every point for you. Just follow the glow, tap, and say the words out loud.</p>
+          <div class="tap-speed" role="group" aria-label="Pace">
+            <button class="tab pace-btn" type="button" data-pace="9000">Slow</button>
+            <button class="tab pace-btn" type="button" data-pace="6500">Medium</button>
+            <button class="tab pace-btn" type="button" data-pace="4500">Fast</button>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-pink" type="button" id="tapStart">Start tapping</button>
+          </div>
+        </div>
+        <h3 class="tap-h">Setup</h3>
+        <p>Tap on your karate chop point and say each of these out loud.</p>
+        <ul class="tap-list tap-seq">
+          <li><span class="tap-pt">Karate chop</span><span class="tap-say">Even though part of me feels greedy for wanting this much, I deeply love and accept myself.</span></li>
+          <li><span class="tap-pt">Karate chop</span><span class="tap-say">Even though I learned to just be grateful for what I have, and wanting more feels wrong, I deeply love and accept myself.</span></li>
+          <li><span class="tap-pt">Karate chop</span><span class="tap-say">Even though part of me thinks this is for other women and not for me, I choose to love and accept myself anyway.</span></li>
+        </ul>
+        <p class="tap-breath">Take a deep breath in, and let it out.</p>
+        <h3 class="tap-h">Round 1: The old story</h3>
+        <ul class="tap-list tap-seq">
+          <li><span class="tap-pt">Eyebrow</span><span class="tap-say">Who am I to want this much?</span></li>
+          <li><span class="tap-pt">Side of eye</span><span class="tap-say">I should just be grateful for what I have.</span></li>
+          <li><span class="tap-pt">Under eye</span><span class="tap-say">Wanting more feels greedy.</span></li>
+          <li><span class="tap-pt">Under nose</span><span class="tap-say">That kind of money is for other women.</span></li>
+          <li><span class="tap-pt">Chin</span><span class="tap-say">If I want more, I'll have to hustle more.</span></li>
+          <li><span class="tap-pt">Collarbone</span><span class="tap-say">I'll lose myself.</span></li>
+          <li><span class="tap-pt">Under arm</span><span class="tap-say">It feels safer to want a little.</span></li>
+          <li><span class="tap-pt">Top of head</span><span class="tap-say">All this old story about wanting more.</span></li>
+        </ul>
+        <p class="tap-breath">Take a deep breath in, and let it out.</p>
+        <h3 class="tap-h">Round 2: The bridge</h3>
+        <ul class="tap-list tap-seq">
+          <li><span class="tap-pt">Eyebrow</span><span class="tap-say">But what if I can be grateful and still want more?</span></li>
+          <li><span class="tap-pt">Side of eye</span><span class="tap-say">What if gratitude and desire live together?</span></li>
+          <li><span class="tap-pt">Under eye</span><span class="tap-say">What if wanting more means I get to give more?</span></li>
+          <li><span class="tap-pt">Under nose</span><span class="tap-say">More to my family. More to the people I love.</span></li>
+          <li><span class="tap-pt">Chin</span><span class="tap-say">What if more doesn't have to mean hustle?</span></li>
+          <li><span class="tap-pt">Collarbone</span><span class="tap-say">What if she already knows how to handle it?</span></li>
+          <li><span class="tap-pt">Under arm</span><span class="tap-say">What if this desire was given to me for a reason?</span></li>
+          <li><span class="tap-pt">Top of head</span><span class="tap-say">I'm open to wanting it all.</span></li>
+        </ul>
+        <p class="tap-breath">Take a deep breath in, and let it out.</p>
+        <h3 class="tap-h">Round 3: Her frequency</h3>
+        <ul class="tap-list tap-seq">
+          <li><span class="tap-pt">Eyebrow</span><span class="tap-say">I'm ready to receive it all.</span></li>
+          <li><span class="tap-pt">Side of eye</span><span class="tap-say">It's safe for me to want this much.</span></li>
+          <li><span class="tap-pt">Under eye</span><span class="tap-say">I'm worthy of everything I desire.</span></li>
+          <li><span class="tap-pt">Under nose</span><span class="tap-say">My desire is my compass.</span></li>
+          <li><span class="tap-pt">Chin</span><span class="tap-say">It's pointing straight at her.</span></li>
+          <li><span class="tap-pt">Collarbone</span><span class="tap-say">I move with ease and I handle overflow.</span></li>
+          <li><span class="tap-pt">Under arm</span><span class="tap-say">The more I receive, the more I get to give.</span></li>
+          <li><span class="tap-pt">Top of head</span><span class="tap-say">It's already mine.</span></li>
+        </ul>
+        <p class="tap-breath">Take a deep breath in, and let it out.</p>
+        <h3 class="tap-h">Round 4: Seal it in</h3>
+        <ul class="tap-list tap-seq">
+          <li><span class="tap-pt">Eyebrow</span><span class="tap-say">I want it all.</span></li>
+          <li><span class="tap-pt">Side of eye</span><span class="tap-say">And I'm ready for it.</span></li>
+          <li><span class="tap-pt">Under eye</span><span class="tap-say">I'm the wealthy CEO.</span></li>
+          <li><span class="tap-pt">Under nose</span><span class="tap-say">Money flows to me with ease.</span></li>
+          <li><span class="tap-pt">Chin</span><span class="tap-say">I love wanting more.</span></li>
+          <li><span class="tap-pt">Collarbone</span><span class="tap-say">It feels so good to want this.</span></li>
+          <li><span class="tap-pt">Under arm</span><span class="tap-say">My body knows it's safe.</span></li>
+          <li><span class="tap-pt">Top of head</span><span class="tap-say">I've decided.</span></li>
+        </ul>
+        <p class="tap-breath">Take a deep breath in, and let it out.</p>
+        <h3 class="tap-h">Check in again</h3>
+        <p>Put your hand on your solar plexus and say your desire out loud one more time. What's your number now?</p>
+        <p>If it came down, beautiful. Notice how much lighter it feels to want it. If there's still a little left, do Rounds 3 and 4 again until it feels light and true. Come back to this any day this week when the old story shows up.</p>
+        <p>She doesn't wobble about wanting it. She just wants it. And so do you.</p>
+        <div class="tap-bar" id="tapBar" hidden>
+          <span class="tap-now" id="tapNow">Karate chop</span>
+          <button class="btn btn-pink btn-small" type="button" id="tapPause">Pause</button>
+          <button class="btn btn-ghost btn-small" type="button" id="tapStop">Stop</button>
+        </div>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d2-step-5" aria-labelledby="d2-tab-5" data-step="5">
+        <span class="step-tag">Hypnosis</span>
+        <h2>Meet her again</h2>
+        <p>Listen to Meet Her again today. This time, as you walk in her shoes, notice everything from your Desire List already in her life.</p>
+        <div class="audio-card" data-audio="1-hypnosis">
+          <div class="a-title">Meet Her</div>
+          <div class="a-meta">Hypnosis · 23 min</div>
+        </div>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d2-step-6" aria-labelledby="d2-tab-6" data-step="6">
+        <span class="step-tag">Share it</span>
+        <h2>Say it out loud together</h2>
+        <p>Share one desire in the community. The big one with the ♡ next to it. Say it in front of women who won't think it's too much and who want it for you as much as you do.</p>
+        <p>When we say it out loud together, we give each other permission to want more.</p>
+        <div class="btn-row">
+          <a class="btn btn-pink" href="https://www.skool.com/embody-wealth" target="_blank" rel="noopener">Share in Embody Wealth</a>
+        </div>
+        <div class="signoff">
+          <p>I believe in you. To living our dreams.</p>
+          <p class="name">Aurailia ✦</p>
+        </div>
+      </div>
+      </div>
+    </section>
+
     <!-- MY WHY -->
     <section class="panel" id="panel-why" data-panel-id="why" aria-labelledby="h-why" hidden>
       <header>
@@ -476,11 +793,12 @@ Here's my voice note:</pre>
 
 <script>
 /* Change this number to open the next day */
-var UNLOCKED_THROUGH = 1;
+var UNLOCKED_THROUGH = 2;
 
 /* Audio files. The page tries each path in order. A Dropbox link (raw=1, no &st=) also works here. */
 var AUDIO = {
   "1-activation": ["https://www.dropbox.com/scl/fi/zuizn8fcnjucvhjhdwpy7/day1-activation.mp3?rlkey=6yz5gs373ygwznj7mjkfulygg&raw=1", "audio/day1-activation.mp3", "day1-activation.mp3", "audio/wealthy_CEO_Day_1.mp3", "wealthy_CEO_Day_1.mp3"],
+  "2-activation": ["https://www.dropbox.com/scl/fi/xfz0lk6jtntxs0bdvu6ce/Day-2-Wealthy-CEO-Activation.mp3?rlkey=ahpphdpun4mcem6cxnfjxw3uu&raw=1", "audio/day2-activation.mp3", "day2-activation.mp3"],
   "1-hypnosis": ["https://www.dropbox.com/scl/fi/ld2qsvmc5aewtjh69h5tn/day1-meet-her.mp3?rlkey=yxg8w4d778osehjwnz2zqsx79&raw=1", "audio/day1-meet-her.mp3", "day1-meet-her.mp3", "audio/wealthy_CEO_hypnosis.mp3", "wealthy_CEO_hypnosis.mp3"]
 };
 
@@ -667,6 +985,309 @@ function selectFallback(node) {
   sel.addRange(range);
 }
 
+function parseMoney(v) {
+  var n = parseFloat(String(v || "").replace(/[^0-9.]/g, ""));
+  return isNaN(n) ? 0 : n;
+}
+function fmtMoney(n) {
+  return "$" + Math.round(n).toLocaleString("en-US");
+}
+function moneyStage(key) {
+  var n = parseInt(safeGet("wct-d2-" + key + "-stage") || "0", 10);
+  return isNaN(n) ? 0 : n;
+}
+function renderMoney(key) {
+  var input = document.getElementById("d2-" + key);
+  var base = parseMoney(input.value);
+  var stage = moneyStage(key);
+  var amts = document.querySelectorAll('[data-amt="' + key + '"]');
+  for (var i = 0; i < amts.length; i++) {
+    amts[i].textContent = fmtMoney(base * parseInt(amts[i].getAttribute("data-mult"), 10)) + (key === "year" ? "/year" : "/month");
+  }
+  document.getElementById("d2-" + key + "-x1").hidden = !(base > 0 && stage >= 1);
+  document.getElementById("d2-" + key + "-x2").hidden = !(base > 0 && stage >= 2);
+  var btn = document.querySelector('[data-double="' + key + '"]');
+  btn.hidden = !(base > 0 && stage < 2);
+  btn.textContent = stage === 0 ? "Double it" : "Double it again";
+}
+function setupDesireGuide() {
+  var fields = document.querySelectorAll("[data-save]");
+  for (var i = 0; i < fields.length; i++) {
+    var saved = safeGet(fields[i].getAttribute("data-save"));
+    if (saved) { fields[i].value = saved; }
+    fields[i].addEventListener("input", onGuideInput);
+  }
+  var moneys = document.querySelectorAll("[data-money]");
+  for (var j = 0; j < moneys.length; j++) { renderMoney(moneys[j].getAttribute("data-money")); }
+  var dbls = document.querySelectorAll("[data-double]");
+  for (var k = 0; k < dbls.length; k++) { dbls[k].addEventListener("click", onDouble); }
+  var build = document.getElementById("buildDesire");
+  if (build) { build.addEventListener("click", onBuildDesire); }
+}
+function onGuideInput(e) {
+  var f = e.currentTarget;
+  safeSet(f.getAttribute("data-save"), f.value);
+  var key = f.getAttribute("data-money");
+  if (key) { renderMoney(key); }
+}
+function onDouble(e) {
+  var key = e.currentTarget.getAttribute("data-double");
+  var stage = Math.min(2, moneyStage(key) + 1);
+  safeSet("wct-d2-" + key + "-stage", String(stage));
+  renderMoney(key);
+  document.getElementById("d2-" + key + "-x" + stage).scrollIntoView({ block: "nearest", behavior: "smooth" });
+}
+var buildConfirming = false;
+var buildTimer = null;
+function composeDesires() {
+  var out = [];
+  var keys = [["year", "/year"], ["month", "/month"]];
+  for (var i = 0; i < keys.length; i++) {
+    var base = parseMoney(document.getElementById("d2-" + keys[i][0]).value);
+    if (base > 0) {
+      var mult = moneyStage(keys[i][0]) >= 2 ? 4 : (moneyStage(keys[i][0]) === 1 ? 2 : 1);
+      out.push("I want to make " + fmtMoney(base * mult) + keys[i][1]);
+    }
+  }
+  var sections = [["business", "My business"], ["life", "Where I live and travel"], ["buy", "What I buy without looking at the price"], ["give", "Who I get to help and give to"], ["more", "Everything else I want"]];
+  for (var j = 0; j < sections.length; j++) {
+    var v = document.getElementById("d2-" + sections[j][0]).value.trim();
+    if (v) { out.push(sections[j][1] + ":\n" + v); }
+  }
+  return out.join("\n\n");
+}
+function onBuildDesire(e) {
+  var btn = e.currentTarget;
+  var area = document.getElementById("desireText");
+  var text = composeDesires();
+  if (!text) { btn.textContent = "Answer a question first"; setTimeout(function () { btn.textContent = "Bring it all together"; }, 2000); return; }
+  if (area.value.trim() && !buildConfirming) {
+    buildConfirming = true;
+    btn.textContent = "Tap again to replace your current list";
+    buildTimer = setTimeout(function () { buildConfirming = false; btn.textContent = "Bring it all together"; }, 4000);
+    return;
+  }
+  clearTimeout(buildTimer);
+  buildConfirming = false;
+  area.value = text;
+  area.dispatchEvent(new Event("input"));
+  btn.textContent = "Bring it all together";
+  area.scrollIntoView({ block: "center", behavior: "smooth" });
+}
+
+var PICK_KEY = "wct-d2-picks";
+function getPicks() {
+  try { var v = JSON.parse(safeGet(PICK_KEY) || "[]"); return Array.isArray(v) ? v : []; } catch (e) { return []; }
+}
+function setPicks(arr) { safeSet(PICK_KEY, JSON.stringify(arr)); }
+function desireLines() {
+  var area = document.getElementById("desireText");
+  if (!area) { return []; }
+  var raw = area.value.split("\n");
+  var out = [];
+  for (var i = 0; i < raw.length; i++) {
+    var t = raw[i].trim();
+    if (!t) { continue; }
+    if (t.charAt(t.length - 1) === ":") { continue; }
+    if (out.indexOf(t) < 0) { out.push(t); }
+  }
+  return out;
+}
+function renderPicks() {
+  var list = document.getElementById("pickList");
+  if (!list) { return; }
+  while (list.firstChild) { list.removeChild(list.firstChild); }
+  var lines = desireLines();
+  var picks = getPicks();
+  var kept = [];
+  for (var k = 0; k < picks.length; k++) { if (lines.indexOf(picks[k]) > -1) { kept.push(picks[k]); } }
+  if (kept.length !== picks.length) { setPicks(kept); picks = kept; }
+  if (!lines.length) {
+    list.appendChild(el("p", "pick-empty", "Your desires will show up here once you bring your list together above."));
+  }
+  for (var i = 0; i < lines.length; i++) {
+    var b = el("button", "pick-item");
+    b.type = "button";
+    var idx = picks.indexOf(lines[i]);
+    b.setAttribute("aria-pressed", idx > -1 ? "true" : "false");
+    b.setAttribute("data-line", lines[i]);
+    var box = el("span", "pick-box", idx > -1 ? String(idx + 1) : "");
+    box.setAttribute("aria-hidden", "true");
+    b.appendChild(box);
+    b.appendChild(el("span", null, lines[i]));
+    b.addEventListener("click", onPick);
+    list.appendChild(b);
+  }
+  renderMirror();
+}
+function onPick(e) {
+  var line = e.currentTarget.getAttribute("data-line");
+  var picks = getPicks();
+  var status = document.getElementById("pickStatus");
+  var idx = picks.indexOf(line);
+  if (idx > -1) {
+    picks.splice(idx, 1);
+    status.textContent = "";
+  } else if (picks.length >= 3) {
+    status.textContent = "You've picked three. Tap one of them to swap it out.";
+    return;
+  } else {
+    picks.push(line);
+    status.textContent = picks.length === 3 ? "That's your three. Take them to the mirror." : "";
+  }
+  setPicks(picks);
+  renderPicks();
+}
+function renderMirror() {
+  var wrap = document.getElementById("mirrorPicks");
+  if (!wrap) { return; }
+  while (wrap.firstChild) { wrap.removeChild(wrap.firstChild); }
+  var picks = getPicks();
+  if (!picks.length) {
+    var empty = el("div", "locked-card");
+    empty.appendChild(el("strong", null, "Pick your three first"));
+    empty.appendChild(el("p", null, "Go back to your Desire List and tap the three desires that feel the biggest. They'll show up right here."));
+    var back = el("button", "btn btn-ghost", "Go to my Desire List");
+    back.type = "button";
+    back.addEventListener("click", function () { showStep("2", 2, true); });
+    empty.appendChild(back);
+    wrap.appendChild(empty);
+    return;
+  }
+  for (var i = 0; i < picks.length; i++) {
+    var card = el("div", "mirror-card");
+    card.appendChild(el("div", "k", "Desire " + (i + 1)));
+    card.appendChild(el("div", "v", picks[i]));
+    wrap.appendChild(card);
+  }
+}
+function setupPicks() {
+  var area = document.getElementById("desireText");
+  if (area) { area.addEventListener("input", renderPicks); }
+  var go = document.getElementById("toMirror");
+  if (go) { go.addEventListener("click", function () { showStep("2", 3, true); }); }
+  renderPicks();
+}
+
+var tapState = { steps: [], i: 0, timer: null, running: false, pace: 6500 };
+function tapPanel() { return document.getElementById("d2-step-4"); }
+function tapCollect() {
+  var nodes = tapPanel().querySelectorAll(".tap-seq li, .tap-breath");
+  var arr = [];
+  for (var i = 0; i < nodes.length; i++) { arr.push(nodes[i]); }
+  return arr;
+}
+function tapLabel(node) {
+  var pt = node.querySelector ? node.querySelector(".tap-pt") : null;
+  return pt ? pt.textContent : "Breathe";
+}
+function tapShow(idx) {
+  for (var i = 0; i < tapState.steps.length; i++) { tapState.steps[i].classList.remove("tap-on"); }
+  var node = tapState.steps[idx];
+  if (!node) { return; }
+  node.classList.add("tap-on");
+  document.getElementById("tapNow").textContent = tapLabel(node) + " · " + (idx + 1) + " of " + tapState.steps.length;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  node.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
+}
+function tapNext() {
+  if (!tapState.running) { return; }
+  tapState.i += 1;
+  if (tapState.i >= tapState.steps.length) { tapFinish(); return; }
+  tapShow(tapState.i);
+  tapSchedule();
+}
+function tapSchedule() {
+  clearTimeout(tapState.timer);
+  var node = tapState.steps[tapState.i];
+  var wait = node && node.classList.contains("tap-breath") ? Math.max(4000, tapState.pace * 0.7) : tapState.pace;
+  tapState.timer = setTimeout(tapNext, wait);
+}
+function tapStart() {
+  tapState.steps = tapCollect();
+  tapState.i = 0;
+  tapState.running = true;
+  tapPanel().classList.add("tap-running");
+  document.getElementById("tapBar").hidden = false;
+  document.getElementById("tapPause").textContent = "Pause";
+  tapShow(0);
+  tapSchedule();
+}
+function tapTogglePause() {
+  var btn = document.getElementById("tapPause");
+  if (tapState.running) {
+    tapState.running = false;
+    clearTimeout(tapState.timer);
+    btn.textContent = "Resume";
+  } else {
+    tapState.running = true;
+    btn.textContent = "Pause";
+    tapSchedule();
+  }
+}
+function tapStop() {
+  tapState.running = false;
+  clearTimeout(tapState.timer);
+  for (var i = 0; i < tapState.steps.length; i++) { tapState.steps[i].classList.remove("tap-on"); }
+  tapPanel().classList.remove("tap-running");
+  document.getElementById("tapBar").hidden = true;
+}
+function tapFinish() {
+  tapStop();
+  var heads = tapPanel().querySelectorAll(".tap-h");
+  var last = heads[heads.length - 1];
+  if (last) { last.scrollIntoView({ block: "start", behavior: "smooth" }); }
+}
+function tapSetPace(ms) {
+  tapState.pace = ms;
+  safeSet("wct-tap-pace", String(ms));
+  var btns = document.querySelectorAll("[data-pace]");
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].setAttribute("aria-pressed", btns[i].getAttribute("data-pace") === String(ms) ? "true" : "false");
+    btns[i].setAttribute("aria-selected", btns[i].getAttribute("data-pace") === String(ms) ? "true" : "false");
+  }
+}
+function setupTapping() {
+  if (!document.getElementById("tapStart")) { return; }
+  var saved = parseInt(safeGet("wct-tap-pace") || "6500", 10);
+  tapSetPace(isNaN(saved) ? 6500 : saved);
+  var btns = document.querySelectorAll("[data-pace]");
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("click", function (e) { tapSetPace(parseInt(e.currentTarget.getAttribute("data-pace"), 10)); });
+  }
+  document.getElementById("tapStart").addEventListener("click", tapStart);
+  document.getElementById("tapPause").addEventListener("click", tapTogglePause);
+  document.getElementById("tapStop").addEventListener("click", tapStop);
+  var tabs = document.querySelectorAll(".tab[role='tab'], .node-btn, .why-link");
+  for (var j = 0; j < tabs.length; j++) { tabs[j].addEventListener("click", tapStop); }
+}
+
+function setupSavedText(areaId, statusId, copyId, key) {
+  var area = document.getElementById(areaId);
+  var status = document.getElementById(statusId);
+  if (!area) { return; }
+  var timer = null;
+  var saved = safeGet(key);
+  if (saved) {
+    area.value = saved;
+    var when = safeGet(key + "-date");
+    status.textContent = when ? "Last updated " + when : "";
+  }
+  area.addEventListener("input", function () {
+    status.textContent = "Saving...";
+    if (timer) { clearTimeout(timer); }
+    timer = setTimeout(function () {
+      var stamp = new Date().toLocaleDateString(undefined, { month: "short", day: "numeric" });
+      var ok = safeSet(key, area.value);
+      safeSet(key + "-date", stamp);
+      status.textContent = ok ? "Saved · " + stamp : "Couldn't save in this browser. Copy your list to keep it safe.";
+    }, 500);
+  });
+  document.getElementById(copyId).addEventListener("click", function (e) {
+    copyText(area.value, e.currentTarget, "Copied", area);
+  });
+}
+
 function setupWhy() {
   var area = document.getElementById("whyText");
   var status = document.getElementById("whyStatus");
@@ -718,7 +1339,7 @@ function setupSteps() {
 }
 function initStepGroup(group) {
   var day = group.getAttribute("data-day");
-  var tabs = group.querySelectorAll(".tab");
+  var tabs = group.querySelectorAll(".tabs .tab");
   var panels = group.querySelectorAll(".step-panel");
   for (var i = 0; i < tabs.length; i++) {
     tabs[i].addEventListener("click", onTabClick);
@@ -761,11 +1382,11 @@ function onTabKey(e) {
   if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") { return; }
   var t = e.currentTarget;
   var group = t.closest(".steps");
-  var count = group.querySelectorAll(".tab").length;
+  var count = group.querySelectorAll(".tabs .tab").length;
   var cur = parseInt(t.getAttribute("data-step"), 10);
   var nxt = e.key === "ArrowRight" ? Math.min(count - 1, cur + 1) : Math.max(0, cur - 1);
   showStep(group.getAttribute("data-day"), nxt, false);
-  group.querySelectorAll(".tab")[nxt].focus();
+  group.querySelectorAll(".tabs .tab")[nxt].focus();
 }
 function onStepJump(e) {
   var b = e.currentTarget;
@@ -774,7 +1395,7 @@ function onStepJump(e) {
 function showStep(day, idx, scroll) {
   var group = document.querySelector('.steps[data-day="' + day + '"]');
   if (!group) { return; }
-  var tabs = group.querySelectorAll(".tab");
+  var tabs = group.querySelectorAll(".tabs .tab");
   var panels = group.querySelectorAll(".step-panel");
   for (var i = 0; i < panels.length; i++) {
     var on = i === idx;
@@ -814,6 +1435,10 @@ function init() {
   setupPortals();
   setupWhy();
   setupSteps();
+  setupDesireGuide();
+  setupSavedText("desireText", "desireStatus", "copyDesire", "wct-desires");
+  setupPicks();
+  setupTapping();
   document.getElementById("navWhy").addEventListener("click", onNavClick);
   document.getElementById("menuBtn").addEventListener("click", toggleDrawer);
   document.getElementById("scrim").addEventListener("click", closeDrawer);
