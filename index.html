@@ -338,6 +338,33 @@ button { font-family: inherit; }
 .tap-now { flex: 1; min-width: 0; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
 @media (prefers-reduced-motion: reduce) { .tap-seq li, .tap-breath { transition: none; } }
 
+.wh-list { display: flex; flex-direction: column; gap: 10px; }
+.wh-prompt { max-height: 220px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); }
+.wh-row { display: grid; grid-template-columns: 34px auto minmax(0, 1fr) 34px; gap: 8px; align-items: center; }
+.wh-star, .wh-x { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--muted); font-size: 17px; line-height: 1; cursor: pointer; display: grid; place-items: center; padding: 0; }
+.wh-star:hover, .wh-x:hover { border-color: var(--lav); color: var(--fg); }
+.wh-star[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: #1a0b16; }
+.wh-pre { font-family: var(--serif); font-size: 19px; color: var(--gold); white-space: nowrap; }
+.wh-in { min-width: 0; width: 100%; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-family: var(--serif); font-size: 19px; }
+.wh-in:focus { border-color: var(--gold); outline: none; }
+@media (max-width: 520px) { .wh-row { grid-template-columns: 34px minmax(0, 1fr) 34px; } .wh-row .wh-in { grid-column: 1 / -1; grid-row: 2; } }
+.proof-peek { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; }
+.proof-peek summary { cursor: pointer; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+.proof-item { margin-top: 10px; }
+.proof-item .pq { font-size: 13px; color: var(--muted); }
+.proof-item .pa { font-family: var(--serif); font-size: 18px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.rec-card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.rec-top { display: flex; align-items: center; gap: 16px; }
+.rec-btn { width: 68px; height: 68px; flex: none; border-radius: 50%; border: 2px solid var(--pink); background: var(--pink-soft); display: grid; place-items: center; cursor: pointer; }
+.rec-dot { width: 26px; height: 26px; border-radius: 50%; background: var(--pink); transition: border-radius 0.2s ease, transform 0.2s ease; }
+.rec-btn.on .rec-dot { border-radius: 6px; transform: scale(0.85); }
+.rec-btn.on { animation: recpulse 1.4s ease-in-out infinite; }
+@keyframes recpulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 79, 163, 0.45); } 50% { box-shadow: 0 0 0 12px rgba(255, 79, 163, 0); } }
+.rec-state { font-family: var(--serif); font-size: 22px; }
+.rec-time { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.rec-card audio { width: 100%; }
+@media (prefers-reduced-motion: reduce) { .rec-btn.on { animation: none; } }
+
 [hidden] { display: none !important; }
 
 @media (max-width: 820px) {
@@ -762,6 +789,214 @@ Here's my voice note:</pre>
       </div>
     </section>
 
+    <!-- DAY 3 -->
+    <section class="panel" id="panel-day3" data-panel-id="day3" aria-labelledby="h-day3" hidden>
+      <header>
+        <p class="eyebrow">Day 3 of 7</p>
+        <h1 id="h-day3">Rewrite Who You Are</h1>
+        <p class="lede">Today you look at how far you've come, and you rewrite the story of who you are with your proof right beside you.</p>
+      </header>
+      <div class="anchor" id="d3Fav" hidden>
+        <div class="k">My statement · I'm the woman who</div>
+        <div class="v" id="d3FavText"></div>
+      </div>
+
+      <div class="steps" data-day="3">
+      <div class="tabs" role="tablist" aria-label="Today's steps">
+        <button class="tab" role="tab" type="button" id="d3-tab-0" aria-controls="d3-step-0" data-step="0"><span class="tab-num">1</span>Portal + My Why</button>
+        <button class="tab" role="tab" type="button" id="d3-tab-1" aria-controls="d3-step-1" data-step="1"><span class="tab-num">2</span>Activation</button>
+        <button class="tab" role="tab" type="button" id="d3-tab-2" aria-controls="d3-step-2" data-step="2"><span class="tab-num">3</span>Your Proof</button>
+        <button class="tab" role="tab" type="button" id="d3-tab-3" aria-controls="d3-step-3" data-step="3"><span class="tab-num">4</span>I'm the Woman Who</button>
+        <button class="tab" role="tab" type="button" id="d3-tab-4" aria-controls="d3-step-4" data-step="4"><span class="tab-num">5</span>Voice Note as Her</button>
+        <button class="tab" role="tab" type="button" id="d3-tab-5" aria-controls="d3-step-5" data-step="5"><span class="tab-num">6</span>Get Ready as Her</button>
+        <button class="tab" role="tab" type="button" id="d3-tab-6" aria-controls="d3-step-6" data-step="6"><span class="tab-num">7</span>Meet Her</button>
+        <button class="tab" role="tab" type="button" id="d3-tab-7" aria-controls="d3-step-7" data-step="7"><span class="tab-num">8</span>Share It</button>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d3-step-0" aria-labelledby="d3-tab-0" data-step="0">
+        <span class="step-tag">Start here</span>
+        <h2>Walk through your portal</h2>
+        <p>Before your phone. Before your coffee. Step through as her. Every time you do, she gets a little more familiar to your body and your mind.</p>
+        <div class="anchor">
+          <div class="k">Your anchor</div>
+          <div class="v">Hand on your solar plexus. One breath.<br><em>"I've decided."</em></div>
+        </div>
+        <label class="check"><input type="checkbox" id="portal-3" data-portal="3"><span>I went through my portal today</span></label>
+        <p>Then read your why. And once you've recorded your voice note today, play it back every morning after your portal.</p>
+        <div class="btn-row">
+          <button class="btn btn-ghost" type="button" data-goto="why">Read My Why</button>
+        </div>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d3-step-1" aria-labelledby="d3-tab-1" data-step="1">
+        <span class="step-tag">Listen</span>
+        <h2>Listen to the activation</h2>
+        <p>Your business can only grow as big as the woman running it believes she is. Today we look at the stories you tell about yourself, gather your proof, and rewrite who you are.</p>
+        <div class="audio-card" data-audio="3-activation">
+          <div class="a-title">Day 3 Activation: Rewrite Who You Are</div>
+          <div class="a-meta">Audio activation</div>
+        </div>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d3-step-2" aria-labelledby="d3-tab-2" data-step="2">
+        <span class="step-tag">Embodiment practice</span>
+        <h2>Look how far you've come</h2>
+        <p>Your nervous system needs evidence before it believes a new story. So we start with proof, and you have so much more than you think. Don't skip the small things. The small things count.</p>
+        <div class="dq">
+          <label class="dq-q" for="d3-left">What did you walk away from to start this?</label>
+          <p class="dq-hint">A job, a paycheck, a version of life that wasn't yours.</p>
+          <textarea class="dq-area" id="d3-left" data-save="wct-d3-left" data-proof="What did you walk away from to start this?"></textarea>
+        </div>
+        <div class="dq">
+          <label class="dq-q" for="d3-firsts">What were your firsts?</label>
+          <p class="dq-hint">Your first client. Your first payment. The first time you showed up on video.</p>
+          <textarea class="dq-area" id="d3-firsts" data-save="wct-d3-firsts" data-proof="What were your firsts?"></textarea>
+        </div>
+        <div class="dq">
+          <label class="dq-q" for="d3-through">What did you get through that you didn't think you'd survive?</label>
+          <p class="dq-hint">The hard months, the zero months, the moments you wanted to quit and didn't.</p>
+          <textarea class="dq-area" id="d3-through" data-save="wct-d3-through" data-proof="What did you get through that you didn&#x27;t think you&#x27;d survive?"></textarea>
+        </div>
+        <div class="dq">
+          <label class="dq-q" for="d3-now">What can you do now that used to scare you?</label>
+          <p class="dq-hint">Calls, prices, posting, saying no. Notice how much easier some of it is now.</p>
+          <textarea class="dq-area" id="d3-now" data-save="wct-d3-now" data-proof="What can you do now that used to scare you?"></textarea>
+        </div>
+        <div class="dq">
+          <label class="dq-q" for="d3-amazed">What would the you from a year or three ago be amazed by?</label>
+          <p class="dq-hint">Look at where you are right now through her eyes. Let it land.</p>
+          <textarea class="dq-area" id="d3-amazed" data-save="wct-d3-amazed" data-proof="What would the you from a year or three ago be amazed by?"></textarea>
+        </div>
+        <p>Every one of these is evidence that you're the woman who does hard things, figures it out, and keeps going. When your body sees that, it relaxes. We've done this before. It's safe.</p>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d3-step-3" aria-labelledby="d3-tab-3" data-step="3">
+        <span class="step-tag">Rewrite the story</span>
+        <h2>I'm the woman who</h2>
+        <p>Take each old story and flip it. "I'm still figuring it out" becomes "I'm the woman who figures it out." Write five, and look at your proof while you write so you know every one is true.</p>
+        <details class="proof-peek" open>
+          <summary>Your proof</summary>
+          <div id="d3ProofView"></div>
+        </details>
+        <div class="dq dq-final">
+          <p class="dq-q">Let Claude help</p>
+          <p class="dq-hint">Tap the button and your proof goes into a prompt for you. Paste it into Claude or ChatGPT, and it'll write "I'm the woman who" statements backed by your real proof. Then paste what comes back below.</p>
+          <div class="btn-row">
+            <button class="btn btn-pink" type="button" id="whPromptBtn">Copy my proof prompt</button>
+          </div>
+          <pre class="prompt-text wh-prompt" id="whPromptOut" hidden></pre>
+          <label class="dq-hint" for="whPaste">Paste what Claude gave you</label>
+          <textarea class="dq-area" id="whPaste" placeholder="I'm the woman who..."></textarea>
+          <div class="btn-row">
+            <button class="btn btn-ghost" type="button" id="whAddPasted">Add to my statements</button>
+          </div>
+          <p class="status" id="whStatus" aria-live="polite"></p>
+        </div>
+        <div class="dq">
+          <p class="dq-q">My statements</p>
+          <div id="whList" class="wh-list"></div>
+          <div class="btn-row">
+            <button class="btn btn-ghost btn-small" type="button" id="whAdd">Add another statement</button>
+            <button class="btn btn-ghost btn-small" type="button" id="whClearAll">Clear all</button>
+          </div>
+          <p class="dq-hint">Write your own or edit the ones Claude gave you. Tap ✕ to clear one. Tap the ☆ next to the statement that feels most like her. It becomes your statement for the day and shows up in the gold card at the top of Day 3 every time you open it.</p>
+        </div>
+        <div class="anchor">
+          <div class="k">Say them out loud</div>
+          <div class="v">Hand on your solar plexus. One breath.<br><em>"I'm doing it. It's done."</em></div>
+        </div>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d3-step-4" aria-labelledby="d3-tab-4" data-step="4">
+        <span class="step-tag">Embodiment practice</span>
+        <h2>Record a voice note as her</h2>
+        <p>Your best friend just called and asked, "So how's business?" Answer as her, a year from now, already living it. Tell her about the clients, the money, where you're working from, how easy it feels. Use your "I'm the woman who" statements. Talk in the present tense, and don't script it. One or two minutes is perfect.</p>
+        <div class="rec-card" id="recCard">
+          <div class="rec-top">
+            <button class="rec-btn" type="button" id="recBtn" aria-label="Start recording"><span class="rec-dot" aria-hidden="true"></span></button>
+            <div class="rec-info">
+              <p class="rec-state" id="recState">Tap to record</p>
+              <p class="rec-time" id="recTime">0:00</p>
+            </div>
+          </div>
+          <audio id="recPlayer" controls hidden></audio>
+          <div class="btn-row" id="recActions" hidden>
+            <a class="btn btn-ghost btn-small" id="recSave" download="voice-note-as-her">Save to my device</a>
+            <button class="btn btn-ghost btn-small" type="button" id="recDelete">Delete and record again</button>
+          </div>
+          <p class="note" id="recNote">Your voice note stays on this device, in this browser. Play it back every morning this week after your portal.</p>
+        </div>
+        <h3 class="tap-h">Rather read it?</h3>
+        <p>Record your voice note in Claude or ChatGPT with the voice button instead, paste in this prompt, and you'll get it back as something you can read every morning. Then paste it below.</p>
+        <div class="prompt-box">
+          <div class="prompt-head">
+            <span>Voice note prompt</span>
+            <button class="btn btn-pink btn-small" type="button" id="copyVnPrompt">Copy prompt</button>
+          </div>
+          <pre class="prompt-text" id="vnPromptText">I just recorded a voice note speaking as the future version of me, the wealthy CEO who's already living the business and life I want. I'm telling my best friend how everything is going. Please arrange my words into something I can read back to myself every morning.
+
+How to arrange it:
+- Use my words. Don't add new ideas and don't swap my phrases for fancier ones. It should still sound like me talking.
+- Keep it in first person and present tense, like it's happening right now.
+- Take out filler, repeats and false starts (um, like, you know).
+- Keep my excitement. If I laughed or got emotional, keep that energy in the words.
+- Short paragraphs. No headings, no bullet points, no dashes.
+- Keep it under 350 words.
+- Give me only the arranged text, with nothing before or after it.
+
+Here's my voice note:</pre>
+        </div>
+        <label for="vnText" class="step-tag">My voice note, written</label>
+        <textarea class="why-area" id="vnText" placeholder="Paste what Claude or ChatGPT gave you back here."></textarea>
+        <div class="status" id="vnStatus" aria-live="polite"></div>
+        <div class="btn-row">
+          <button class="btn btn-pink" type="button" id="copyVn">Copy it</button>
+        </div>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d3-step-5" aria-labelledby="d3-tab-5" data-step="5">
+        <span class="step-tag">Embodiment practice</span>
+        <h2>Get ready as her</h2>
+        <p>Identity lives in how you move through your day too. Pick one thing today and do it the way she does.</p>
+        <ol class="ritual">
+          <li><p>The outfit she'd wear to run her business today.</p></li>
+          <li><p>The lipstick, the jewelry, the perfume.</p></li>
+          <li><p>The way she makes her coffee and sits down to drink it.</p></li>
+          <li><p>The way she sits down at her desk and opens her laptop.</p></li>
+        </ol>
+        <div class="dq">
+          <label class="dq-q" for="d3-ready">What did you do as her today?</label>
+          <textarea class="dq-area" id="d3-ready" data-save="wct-d3-ready"></textarea>
+        </div>
+        <label class="check"><input type="checkbox" id="d3-ready-check" data-save-check="wct-d3-ready-check"><span>I got ready as her today</span></label>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d3-step-6" aria-labelledby="d3-tab-6" data-step="6">
+        <span class="step-tag">Hypnosis</span>
+        <h2>Meet her again</h2>
+        <p>This time, notice how she talks about herself. Notice the stories she tells. Notice how sure she is.</p>
+        <div class="audio-card" data-audio="1-hypnosis">
+          <div class="a-title">Meet Her</div>
+          <div class="a-meta">Hypnosis · 23 min</div>
+        </div>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d3-step-7" aria-labelledby="d3-tab-7" data-step="7">
+        <span class="step-tag">Share it</span>
+        <h2>Let us see who you are now</h2>
+        <p>Share your favorite "I'm the woman who" statement in the community. Say it proud. You've already come so far, and she's the proof of where you're going.</p>
+        <div class="btn-row">
+          <a class="btn btn-pink" href="https://www.skool.com/embody-wealth" target="_blank" rel="noopener">Share in Embody Wealth</a>
+        </div>
+        <div class="signoff">
+          <p>I believe in you. To living our dreams.</p>
+          <p class="name">Aurailia ✦</p>
+        </div>
+      </div>
+
+      </div>
+    </section>
+
     <!-- MY WHY -->
     <section class="panel" id="panel-why" data-panel-id="why" aria-labelledby="h-why" hidden>
       <header>
@@ -793,11 +1028,12 @@ Here's my voice note:</pre>
 
 <script>
 /* Change this number to open the next day */
-var UNLOCKED_THROUGH = 2;
+var UNLOCKED_THROUGH = 3;
 
 /* Audio files. The page tries each path in order. A Dropbox link (raw=1, no &st=) also works here. */
 var AUDIO = {
   "1-activation": ["https://www.dropbox.com/scl/fi/zuizn8fcnjucvhjhdwpy7/day1-activation.mp3?rlkey=6yz5gs373ygwznj7mjkfulygg&raw=1", "audio/day1-activation.mp3", "day1-activation.mp3", "audio/wealthy_CEO_Day_1.mp3", "wealthy_CEO_Day_1.mp3"],
+  "3-activation": ["https://www.dropbox.com/scl/fi/70rc6etarpnrrh05y8re4/day-3-wealthy-CEO.mp3?rlkey=ak9xlfgnml0bk88h41z0hb0zc&raw=1"],
   "2-activation": ["https://www.dropbox.com/scl/fi/xfz0lk6jtntxs0bdvu6ce/Day-2-Wealthy-CEO-Activation.mp3?rlkey=ahpphdpun4mcem6cxnfjxw3uu&raw=1", "audio/day2-activation.mp3", "day2-activation.mp3"],
   "1-hypnosis": ["https://www.dropbox.com/scl/fi/ld2qsvmc5aewtjh69h5tn/day1-meet-her.mp3?rlkey=yxg8w4d778osehjwnz2zqsx79&raw=1", "audio/day1-meet-her.mp3", "day1-meet-her.mp3", "audio/wealthy_CEO_hypnosis.mp3", "wealthy_CEO_hypnosis.mp3"]
 };
@@ -1262,6 +1498,359 @@ function setupTapping() {
   for (var j = 0; j < tabs.length; j++) { tabs[j].addEventListener("click", tapStop); }
 }
 
+/* Day 3 */
+var WH_PLACEHOLDERS = ["figures it out", "always has money flowing in", "gets paid to be herself", "loves sharing her offers, and clients say yes", "is already living it"];
+function whGet() {
+  var arr = null;
+  try { arr = JSON.parse(safeGet("wct-d3-whos") || "null"); } catch (e) { arr = null; }
+  if (!Array.isArray(arr)) {
+    arr = [];
+    for (var i = 0; i < 5; i++) { arr.push(safeGet("wct-d3-who-" + i) || ""); }
+  }
+  while (arr.length < 5) { arr.push(""); }
+  return arr;
+}
+function whSave(arr) { safeSet("wct-d3-whos", JSON.stringify(arr)); }
+function renderWh(focusIdx) {
+  var list = document.getElementById("whList");
+  if (!list) { return; }
+  while (list.firstChild) { list.removeChild(list.firstChild); }
+  var arr = whGet();
+  var fav = safeGet("wct-d3-fav");
+  for (var i = 0; i < arr.length; i++) {
+    var row = el("div", "wh-row");
+    var star = el("button", "wh-star", fav === String(i) ? "\u2605" : "\u2606");
+    star.type = "button";
+    star.setAttribute("aria-pressed", fav === String(i) ? "true" : "false");
+    star.setAttribute("aria-label", "Make statement " + (i + 1) + " my statement for the day");
+    star.setAttribute("data-idx", String(i));
+    star.addEventListener("click", onWhFav);
+    var pre = el("span", "wh-pre", "I'm the woman who");
+    var inp = document.createElement("input");
+    inp.type = "text";
+    inp.className = "wh-in";
+    inp.id = "d3-who-" + i;
+    inp.value = arr[i];
+    inp.placeholder = WH_PLACEHOLDERS[i] || "...";
+    inp.setAttribute("aria-label", "Statement " + (i + 1));
+    inp.setAttribute("data-idx", String(i));
+    inp.addEventListener("input", onWhInput);
+    var x = el("button", "wh-x", "\u2715");
+    x.type = "button";
+    x.setAttribute("aria-label", "Clear statement " + (i + 1));
+    x.setAttribute("data-idx", String(i));
+    x.addEventListener("click", onWhClear);
+    row.appendChild(star);
+    row.appendChild(pre);
+    row.appendChild(x);
+    row.appendChild(inp);
+    list.appendChild(row);
+  }
+  if (typeof focusIdx === "number") {
+    var f = document.getElementById("d3-who-" + focusIdx);
+    if (f) { f.focus(); }
+  }
+  renderD3Fav();
+}
+function onWhInput(e) {
+  var arr = whGet();
+  arr[parseInt(e.currentTarget.getAttribute("data-idx"), 10)] = e.currentTarget.value;
+  whSave(arr);
+  renderD3Fav();
+}
+function onWhFav(e) {
+  var idx = e.currentTarget.getAttribute("data-idx");
+  if (safeGet("wct-d3-fav") === idx) { safeSet("wct-d3-fav", ""); } else { safeSet("wct-d3-fav", idx); }
+  renderWh();
+}
+function onWhClear(e) {
+  var idx = parseInt(e.currentTarget.getAttribute("data-idx"), 10);
+  var arr = whGet();
+  var fav = safeGet("wct-d3-fav");
+  if (arr.length > 5) {
+    arr.splice(idx, 1);
+    if (fav !== null && fav !== "") {
+      var f = parseInt(fav, 10);
+      if (f === idx) { safeSet("wct-d3-fav", ""); } else if (f > idx) { safeSet("wct-d3-fav", String(f - 1)); }
+    }
+  } else {
+    arr[idx] = "";
+    if (fav === String(idx)) { safeSet("wct-d3-fav", ""); }
+  }
+  whSave(arr);
+  renderWh();
+}
+var whClearConfirming = false;
+var whClearTimer = null;
+function onWhClearAll(e) {
+  var btn = e.currentTarget;
+  if (!whClearConfirming) {
+    whClearConfirming = true;
+    btn.textContent = "Tap again to clear all";
+    whClearTimer = setTimeout(function () { whClearConfirming = false; btn.textContent = "Clear all"; }, 4000);
+    return;
+  }
+  clearTimeout(whClearTimer);
+  whClearConfirming = false;
+  btn.textContent = "Clear all";
+  whSave(["", "", "", "", ""]);
+  safeSet("wct-d3-fav", "");
+  renderWh();
+  document.getElementById("whStatus").textContent = "";
+}
+function renderD3Fav() {
+  var card = document.getElementById("d3Fav");
+  if (!card) { return; }
+  var fav = safeGet("wct-d3-fav");
+  var arr = whGet();
+  var txt = fav && arr[parseInt(fav, 10)] ? arr[parseInt(fav, 10)].trim() : "";
+  document.getElementById("d3FavText").textContent = txt;
+  card.hidden = !txt;
+}
+function whBuildPrompt() {
+  var fields = document.querySelectorAll("[data-proof]");
+  var proof = [];
+  for (var i = 0; i < fields.length; i++) {
+    var v = fields[i].value.trim();
+    if (v) { proof.push(fields[i].getAttribute("data-proof") + "\n" + v); }
+  }
+  if (!proof.length) { return ""; }
+  return "Here's proof of how far I've come in my business and my life. Use it to write 6 \"I'm the woman who\" statements for me.\n\n" +
+    "How to write them:\n" +
+    "- Every statement starts with \"I'm the woman who\".\n" +
+    "- Each one is grounded in something real from my proof, then stretched toward the wealthy CEO I'm becoming.\n" +
+    "- Present tense, confident, as if it's already true.\n" +
+    "- Simple, warm words that sound like me talking. No marketing language.\n" +
+    "- One statement per line. No numbers, no bullet points, no dashes, and nothing before or after the list.\n\n" +
+    "My proof:\n\n" + proof.join("\n\n");
+}
+function onWhPrompt(e) {
+  var btn = e.currentTarget;
+  var text = whBuildPrompt();
+  var out = document.getElementById("whPromptOut");
+  if (!text) {
+    btn.textContent = "Fill in Your Proof first";
+    setTimeout(function () { btn.textContent = "Copy my proof prompt"; }, 2500);
+    return;
+  }
+  out.textContent = text;
+  out.hidden = false;
+  copyText(text, btn, "Copied. Paste it into Claude", out);
+}
+function whCleanLine(line) {
+  var t = line.trim();
+  t = t.replace(/^[\s\-\*\u2022\u2013\u2014\d\.\)]+/, "").trim();
+  t = t.replace(/^["\u201c\u201d']+|["\u201c\u201d']+$/g, "").trim();
+  t = t.replace(/^(i['\u2019]m|i am)\s+the\s+woman\s+who\s*/i, "").trim();
+  t = t.replace(/\.+$/, "").trim();
+  return t;
+}
+function onWhAddPasted() {
+  var box = document.getElementById("whPaste");
+  var status = document.getElementById("whStatus");
+  var lines = box.value.split("\n");
+  var found = [];
+  for (var i = 0; i < lines.length; i++) {
+    var c = whCleanLine(lines[i]);
+    if (c) { found.push(c); }
+  }
+  if (!found.length) { status.textContent = "Paste what Claude gave you first."; return; }
+  var arr = whGet();
+  var added = 0;
+  for (var j = 0; j < found.length; j++) {
+    var slot = -1;
+    for (var k = 0; k < arr.length; k++) { if (!arr[k].trim()) { slot = k; break; } }
+    if (slot > -1) { arr[slot] = found[j]; } else { arr.push(found[j]); }
+    added += 1;
+  }
+  whSave(arr);
+  box.value = "";
+  renderWh();
+  status.textContent = "Added " + added + (added === 1 ? " statement" : " statements") + ". Edit them, add your own, and pick your favorite.";
+}
+function onWhAdd() {
+  var arr = whGet();
+  arr.push("");
+  whSave(arr);
+  renderWh(arr.length - 1);
+}
+function renderD3Proof() {
+  var view = document.getElementById("d3ProofView");
+  if (!view) { return; }
+  while (view.firstChild) { view.removeChild(view.firstChild); }
+  var fields = document.querySelectorAll("[data-proof]");
+  var any = false;
+  for (var i = 0; i < fields.length; i++) {
+    var v = fields[i].value.trim();
+    if (!v) { continue; }
+    any = true;
+    var item = el("div", "proof-item");
+    item.appendChild(el("p", "pq", fields[i].getAttribute("data-proof")));
+    item.appendChild(el("p", "pa", v));
+    view.appendChild(item);
+  }
+  if (!any) {
+    var empty = el("p", "pick-empty", "Your proof shows up here once you fill in Your Proof.");
+    view.appendChild(empty);
+  }
+}
+function setupDay3() {
+  renderWh();
+  document.getElementById("whPromptBtn").addEventListener("click", onWhPrompt);
+  document.getElementById("whAddPasted").addEventListener("click", onWhAddPasted);
+  document.getElementById("whAdd").addEventListener("click", onWhAdd);
+  document.getElementById("whClearAll").addEventListener("click", onWhClearAll);
+  var proofs = document.querySelectorAll("[data-proof]");
+  for (var k = 0; k < proofs.length; k++) { proofs[k].addEventListener("input", renderD3Proof); }
+  var checks = document.querySelectorAll("[data-save-check]");
+  for (var m = 0; m < checks.length; m++) {
+    checks[m].checked = safeGet(checks[m].getAttribute("data-save-check")) === "1";
+    syncCheck(checks[m]);
+    checks[m].addEventListener("change", function (e) { var c = e.currentTarget; safeSet(c.getAttribute("data-save-check"), c.checked ? "1" : "0"); syncCheck(c); });
+  }
+  renderD3Fav();
+  renderD3Proof();
+  var vp = document.getElementById("copyVnPrompt");
+  if (vp) { vp.addEventListener("click", function (e) { var pre = document.getElementById("vnPromptText"); copyText(pre.textContent, e.currentTarget, "Copied", pre); }); }
+  setupSavedText("vnText", "vnStatus", "copyVn", "wct-d3-vn");
+  setupRecorder();
+}
+
+/* Voice note recorder, stored in IndexedDB on this device */
+var rec = { stream: null, recorder: null, chunks: [], start: 0, tick: null, url: null, confirming: false, timer: null };
+var REC_MAX_MS = 180000;
+var idbOpen = function (cb) {
+  try {
+    var req = window.indexedDB.open("wct-voice", 1);
+    req.onupgradeneeded = function () { req.result.createObjectStore("notes"); };
+    req.onsuccess = function () { cb(req.result); };
+    req.onerror = function () { cb(null); };
+  } catch (e) { cb(null); }
+};
+var idbPut = function (key, blob) {
+  idbOpen(function (db) {
+    if (!db) { return; }
+    try { db.transaction("notes", "readwrite").objectStore("notes").put(blob, key); } catch (e) {}
+  });
+};
+var idbGet = function (key, cb) {
+  idbOpen(function (db) {
+    if (!db) { cb(null); return; }
+    try {
+      var r = db.transaction("notes", "readonly").objectStore("notes").get(key);
+      r.onsuccess = function () { cb(r.result || null); };
+      r.onerror = function () { cb(null); };
+    } catch (e) { cb(null); }
+  });
+};
+var idbDel = function (key) {
+  idbOpen(function (db) {
+    if (!db) { return; }
+    try { db.transaction("notes", "readwrite").objectStore("notes").delete(key); } catch (e) {}
+  });
+};
+function recFmt(ms) {
+  var sec = Math.floor(ms / 1000);
+  var m = Math.floor(sec / 60);
+  var s2 = sec % 60;
+  return m + ":" + (s2 < 10 ? "0" : "") + s2;
+}
+function recShowBlob(blob) {
+  var player = document.getElementById("recPlayer");
+  if (rec.url) { try { URL.revokeObjectURL(rec.url); } catch (e) {} }
+  rec.url = URL.createObjectURL(blob);
+  player.src = rec.url;
+  player.hidden = false;
+  document.getElementById("recActions").hidden = false;
+  var save = document.getElementById("recSave");
+  save.href = rec.url;
+  var ext = (blob.type || "").indexOf("mp4") > -1 ? ".m4a" : ".webm";
+  save.setAttribute("download", "voice-note-as-her" + ext);
+  document.getElementById("recState").textContent = "Your voice note as her";
+  document.getElementById("recTime").textContent = "Tap record to make a new one";
+}
+function recSupported() {
+  return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+}
+function recUnavailable(msg) {
+  document.getElementById("recState").textContent = "Recording isn't available here";
+  document.getElementById("recTime").textContent = msg;
+  document.getElementById("recBtn").disabled = true;
+  document.getElementById("recBtn").style.opacity = "0.4";
+}
+function recStart() {
+  navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+    rec.stream = stream;
+    rec.chunks = [];
+    var opts = {};
+    if (window.MediaRecorder.isTypeSupported && window.MediaRecorder.isTypeSupported("audio/mp4")) { opts.mimeType = "audio/mp4"; }
+    else if (window.MediaRecorder.isTypeSupported && window.MediaRecorder.isTypeSupported("audio/webm")) { opts.mimeType = "audio/webm"; }
+    try { rec.recorder = new MediaRecorder(stream, opts); } catch (e) { rec.recorder = new MediaRecorder(stream); }
+    rec.recorder.ondataavailable = function (ev) { if (ev.data && ev.data.size) { rec.chunks.push(ev.data); } };
+    rec.recorder.onstop = recFinish;
+    rec.recorder.start(1000);
+    rec.start = Date.now();
+    var btn = document.getElementById("recBtn");
+    btn.classList.add("on");
+    btn.setAttribute("aria-label", "Stop recording");
+    document.getElementById("recState").textContent = "Recording as her...";
+    rec.tick = setInterval(function () {
+      var el2 = Date.now() - rec.start;
+      document.getElementById("recTime").textContent = recFmt(el2) + " · tap to stop";
+      if (el2 >= REC_MAX_MS) { recStop(); }
+    }, 250);
+  }, function () {
+    document.getElementById("recState").textContent = "The microphone wasn't allowed";
+    document.getElementById("recTime").textContent = "Allow the microphone for this page in your browser settings, or use the Claude option below.";
+  });
+}
+function recStop() {
+  clearInterval(rec.tick);
+  if (rec.recorder && rec.recorder.state !== "inactive") { rec.recorder.stop(); }
+  if (rec.stream) { rec.stream.getTracks().forEach(function (t) { t.stop(); }); }
+  var btn = document.getElementById("recBtn");
+  btn.classList.remove("on");
+  btn.setAttribute("aria-label", "Start recording");
+}
+function recFinish() {
+  var type = (rec.recorder && rec.recorder.mimeType) || "audio/webm";
+  var blob = new Blob(rec.chunks, { type: type });
+  if (!blob.size) { document.getElementById("recState").textContent = "Nothing was recorded. Try again."; return; }
+  idbPut("d3", blob);
+  recShowBlob(blob);
+}
+function onRecBtn() {
+  if (rec.recorder && rec.recorder.state === "recording") { recStop(); } else { recStart(); }
+}
+function onRecDelete(e) {
+  var btn = e.currentTarget;
+  if (!rec.confirming) {
+    rec.confirming = true;
+    btn.textContent = "Tap again to delete";
+    rec.timer = setTimeout(function () { rec.confirming = false; btn.textContent = "Delete and record again"; }, 4000);
+    return;
+  }
+  clearTimeout(rec.timer);
+  rec.confirming = false;
+  btn.textContent = "Delete and record again";
+  idbDel("d3");
+  var player = document.getElementById("recPlayer");
+  player.pause();
+  player.removeAttribute("src");
+  player.hidden = true;
+  document.getElementById("recActions").hidden = true;
+  document.getElementById("recState").textContent = "Tap to record";
+  document.getElementById("recTime").textContent = "0:00";
+}
+function setupRecorder() {
+  var btn = document.getElementById("recBtn");
+  if (!btn) { return; }
+  document.getElementById("recDelete").addEventListener("click", onRecDelete);
+  if (!recSupported()) { recUnavailable("Use the Claude option below to keep your voice note as text."); return; }
+  btn.addEventListener("click", onRecBtn);
+  idbGet("d3", function (blob) { if (blob) { recShowBlob(blob); } });
+}
+
 function setupSavedText(areaId, statusId, copyId, key) {
   var area = document.getElementById(areaId);
   var status = document.getElementById(statusId);
@@ -1439,6 +2028,7 @@ function init() {
   setupSavedText("desireText", "desireStatus", "copyDesire", "wct-desires");
   setupPicks();
   setupTapping();
+  setupDay3();
   document.getElementById("navWhy").addEventListener("click", onNavClick);
   document.getElementById("menuBtn").addEventListener("click", toggleDrawer);
   document.getElementById("scrim").addEventListener("click", closeDrawer);
