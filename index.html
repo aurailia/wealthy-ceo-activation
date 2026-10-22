@@ -340,14 +340,18 @@ button { font-family: inherit; }
 
 .wh-list { display: flex; flex-direction: column; gap: 10px; }
 .wh-prompt { max-height: 220px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); }
-.wh-row { display: grid; grid-template-columns: 34px auto minmax(0, 1fr) 34px; gap: 8px; align-items: center; }
+.wh-row { display: grid; grid-template-columns: 34px minmax(0, 1fr) 34px; grid-template-areas: "star pre x" "in in in"; gap: 6px 10px; align-items: center; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.wh-row:last-child { border-bottom: 0; padding-bottom: 0; }
+.wh-star { grid-area: star; }
+.wh-x { grid-area: x; }
+.wh-pre { grid-area: pre; }
+.wh-row .wh-in { grid-area: in; }
 .wh-star, .wh-x { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--muted); font-size: 17px; line-height: 1; cursor: pointer; display: grid; place-items: center; padding: 0; }
 .wh-star:hover, .wh-x:hover { border-color: var(--lav); color: var(--fg); }
 .wh-star[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: #1a0b16; }
 .wh-pre { font-family: var(--serif); font-size: 19px; color: var(--gold); white-space: nowrap; }
-.wh-in { min-width: 0; width: 100%; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-family: var(--serif); font-size: 19px; }
+.wh-in { min-width: 0; width: 100%; resize: none; overflow: hidden; line-height: 1.45; display: block; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-family: var(--serif); font-size: 19px; }
 .wh-in:focus { border-color: var(--gold); outline: none; }
-@media (max-width: 520px) { .wh-row { grid-template-columns: 34px minmax(0, 1fr) 34px; } .wh-row .wh-in { grid-column: 1 / -1; grid-row: 2; } }
 .proof-peek { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; }
 .proof-peek summary { cursor: pointer; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
 .proof-item { margin-top: 10px; }
@@ -1526,8 +1530,8 @@ function renderWh(focusIdx) {
     star.setAttribute("data-idx", String(i));
     star.addEventListener("click", onWhFav);
     var pre = el("span", "wh-pre", "I'm the woman who");
-    var inp = document.createElement("input");
-    inp.type = "text";
+    var inp = document.createElement("textarea");
+    inp.rows = 1;
     inp.className = "wh-in";
     inp.id = "d3-who-" + i;
     inp.value = arr[i];
@@ -1535,6 +1539,7 @@ function renderWh(focusIdx) {
     inp.setAttribute("aria-label", "Statement " + (i + 1));
     inp.setAttribute("data-idx", String(i));
     inp.addEventListener("input", onWhInput);
+    inp.addEventListener("input", whGrow);
     var x = el("button", "wh-x", "\u2715");
     x.type = "button";
     x.setAttribute("aria-label", "Clear statement " + (i + 1));
@@ -1546,11 +1551,18 @@ function renderWh(focusIdx) {
     row.appendChild(inp);
     list.appendChild(row);
   }
+  var areas = list.querySelectorAll(".wh-in");
+  for (var g = 0; g < areas.length; g++) { whGrow({ currentTarget: areas[g] }); }
   if (typeof focusIdx === "number") {
     var f = document.getElementById("d3-who-" + focusIdx);
     if (f) { f.focus(); }
   }
   renderD3Fav();
+}
+function whGrow(e) {
+  var t = e.currentTarget;
+  t.style.height = "auto";
+  t.style.height = (t.scrollHeight + 2) + "px";
 }
 function onWhInput(e) {
   var arr = whGet();
