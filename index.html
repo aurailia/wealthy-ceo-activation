@@ -379,6 +379,11 @@ button { font-family: inherit; }
 .msg-bubble p { margin: 0; font-size: 16px; line-height: 1.5; }
 .msg-cue { font-family: var(--serif); font-size: 21px; line-height: 1.35; }
 
+.pay-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.pay-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto 32px; gap: 10px; align-items: center; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 8px 8px 8px 14px; font-variant-numeric: tabular-nums; }
+.pay-list .pd { color: var(--muted); font-size: 14px; }
+.pay-list .pa { font-family: var(--serif); font-size: 20px; color: var(--gold); }
+
 [hidden] { display: none !important; }
 
 @media (max-width: 820px) {
@@ -1024,6 +1029,150 @@ Here's my voice note:</pre>
       </div>
     </section>
 
+    <!-- DAY 4 -->
+    <section class="panel" id="panel-day4" data-panel-id="day4" aria-labelledby="h-day4" hidden>
+      <header>
+        <p class="eyebrow">Day 4 of 7</p>
+        <h1 id="h-day4">Her CEO Day</h1>
+        <p class="lede">Today you live like the wealthy CEO. You decide as her, you pay yourself first, and you gift yourself with joy.</p>
+      </header>
+
+      <div class="steps" data-day="4">
+      <div class="tabs" role="tablist" aria-label="Today's steps">
+        <button class="tab" role="tab" type="button" id="d4-tab-0" aria-controls="d4-step-0" data-step="0"><span class="tab-num">1</span>Portal + My Why</button>
+        <button class="tab" role="tab" type="button" id="d4-tab-1" aria-controls="d4-step-1" data-step="1"><span class="tab-num">2</span>Activation</button>
+        <button class="tab" role="tab" type="button" id="d4-tab-2" aria-controls="d4-step-2" data-step="2"><span class="tab-num">3</span>The CEO Decision</button>
+        <button class="tab" role="tab" type="button" id="d4-tab-3" aria-controls="d4-step-3" data-step="3"><span class="tab-num">4</span>Pay Yourself First</button>
+        <button class="tab" role="tab" type="button" id="d4-tab-4" aria-controls="d4-step-4" data-step="4"><span class="tab-num">5</span>Gift Yourself</button>
+        <button class="tab" role="tab" type="button" id="d4-tab-5" aria-controls="d4-step-5" data-step="5"><span class="tab-num">6</span>Millionaire Hypnosis</button>
+        <button class="tab" role="tab" type="button" id="d4-tab-6" aria-controls="d4-step-6" data-step="6"><span class="tab-num">7</span>Share It</button>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d4-step-0" aria-labelledby="d4-tab-0" data-step="0">
+        <span class="step-tag">Start here</span>
+        <h2>Walk through your portal</h2>
+        <p>Before your phone. Before your coffee. Step through as her. Then play your voice message to your bestie and read your statement.</p>
+        <div class="anchor">
+          <div class="k">Your anchor</div>
+          <div class="v">Hand on your solar plexus. One breath.<br><em>"I've decided."</em></div>
+        </div>
+        <label class="check"><input type="checkbox" id="portal-4" data-portal="4"><span>I went through my portal today</span></label>
+        <div class="btn-row">
+          <button class="btn btn-ghost" type="button" data-goto="why">Read My Why</button>
+        </div>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d4-step-1" aria-labelledby="d4-tab-1" data-step="1">
+        <span class="step-tag">Listen</span>
+        <h2>Listen to the activation</h2>
+        <p>Being the wealthy CEO is how she lives, day to day. Today you learn how she makes decisions, how she pays herself first, and how she gifts herself.</p>
+        <div class="audio-card" data-audio="4-activation">
+          <div class="a-title">Day 4 Activation: Her CEO Day</div>
+          <div class="a-meta">Audio activation</div>
+        </div>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d4-step-2" aria-labelledby="d4-tab-2" data-step="2">
+        <span class="step-tag">CEO practice</span>
+        <h2>Make one decision as her</h2>
+        <p>The wealthy CEO runs her business. Her business doesn't run her. When something comes up, she asks one question and decides. Quickly. And she trusts herself.</p>
+        <div class="anchor">
+          <div class="k">Ask it all day</div>
+          <div class="v"><em>"What would the wealthy CEO decide?"</em></div>
+        </div>
+        <div class="dq">
+          <label class="dq-q" for="d4-stuck">What decision have you been sitting on?</label>
+          <p class="dq-hint">A price, an offer, a client who's not a fit, a yes you want to say, a no you need to say.</p>
+          <textarea class="dq-area" id="d4-stuck" data-save="wct-d4-stuck"></textarea>
+        </div>
+        <div class="dq">
+          <label class="dq-q" for="d4-she">What would she decide?</label>
+          <p class="dq-hint">Hand on your solar plexus. One breath. Ask her, and write the first answer that comes.</p>
+          <textarea class="dq-area" id="d4-she" data-save="wct-d4-she"></textarea>
+        </div>
+        <div class="dq">
+          <label class="dq-q" for="d4-decided">My CEO decision</label>
+          <p class="dq-hint">Write it as done. "I've decided..."</p>
+          <textarea class="dq-area" id="d4-decided" data-save="wct-d4-decided"></textarea>
+        </div>
+        <label class="check"><input type="checkbox" id="d4-decide-check" data-save-check="wct-d4-decide-check"><span>I made my CEO decision today</span></label>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d4-step-3" aria-labelledby="d4-tab-3" data-step="3">
+        <span class="step-tag">CEO practice</span>
+        <h2>Pay yourself 20%</h2>
+        <p>No matter how much comes in, 20% goes to you. Into your savings, or straight to you. When you pay yourself first, you tell your subconscious, "The CEO gets paid." Money starts to feel safe with you, because it has a place to land and stay.</p>
+        <div class="dq">
+          <label class="dq-q" for="d4-in">What came in?</label>
+          <p class="dq-hint">A payment, a sale, a client deposit. Any amount counts.</p>
+          <div class="money-row"><span aria-hidden="true">$</span><input type="text" inputmode="decimal" id="d4-in" class="money-in" placeholder="0" autocomplete="off"></div>
+          <div class="dbl" id="d4-cut" hidden>
+            <p class="dbl-k">Your 20%</p>
+            <p class="dbl-amt" id="d4-cut-amt"></p>
+            <p>Move it to your savings or pay it to yourself. Then tap the button and feel the CEO getting paid.</p>
+          </div>
+          <button class="btn btn-pink btn-small" type="button" id="d4-pay-btn" hidden>I paid myself</button>
+        </div>
+        <div class="dq dq-final">
+          <p class="dq-q">I've paid myself</p>
+          <p class="dbl-amt" id="d4-total">$0</p>
+          <ul class="pay-list" id="d4-pay-list"></ul>
+          <p class="dq-hint">Keep going all week and beyond. Every time money comes in, 20% is yours.</p>
+        </div>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d4-step-4" aria-labelledby="d4-tab-4" data-step="4">
+        <span class="step-tag">Embodiment practice</span>
+        <h2>Gift yourself, as her</h2>
+        <p>Buy yourself something today, just for you. Flowers, chocolate, a massage, your favorite sushi. It doesn't matter what it costs. A $5 bouquet counts just as much as a $40 one. What matters is that you choose it as her, and you make it a ritual.</p>
+        <ol class="ritual">
+          <li><p>Put yourself in the shoes of your wealthy CEO before you go.</p></li>
+          <li><p>Take your time choosing. Look around, connect, and find the one that's perfect for you.</p></li>
+          <li><p>When you buy it, really tune into her buying it for herself.</p></li>
+          <li><p>Put it somewhere you'll see it, or savor every single bite.</p></li>
+          <li><p>Every time you see it, feel the gratitude, and remember how much you deserve to receive.</p></li>
+        </ol>
+        <div class="dq">
+          <label class="dq-q" for="d4-gift">What did you gift yourself?</label>
+          <p class="dq-hint"></p>
+          <textarea class="dq-area" id="d4-gift" data-save="wct-d4-gift"></textarea>
+        </div>
+        <div class="dq">
+          <label class="dq-q" for="d4-felt">How did it feel to choose it as her?</label>
+          <p class="dq-hint"></p>
+          <textarea class="dq-area" id="d4-felt" data-save="wct-d4-felt"></textarea>
+        </div>
+        <label class="check"><input type="checkbox" id="d4-gift-check" data-save-check="wct-d4-gift-check"><span>I gifted myself today</span></label>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d4-step-5" aria-labelledby="d4-tab-5" data-step="5">
+        <span class="step-tag">Hypnosis</span>
+        <h2>Millionaire Hypnosis</h2>
+        <p>Listen as her, and let your body get used to living at that level.</p>
+        <div class="audio-card" data-audio="4-millionaire">
+          <div class="a-title">Millionaire Hypnosis</div>
+          <div class="a-meta">Hypnosis</div>
+        </div>
+        <p>Want to walk in her shoes again too? Meet Her is always on Day 1.</p>
+      </div>
+
+      <div class="block step-panel" role="tabpanel" id="d4-step-6" aria-labelledby="d4-tab-6" data-step="6">
+        <span class="step-tag">Share it</span>
+        <h2>Show us your gift</h2>
+        <p>Share what you gifted yourself today in the community. A photo of your flowers, your sushi, your chocolate, whatever you chose as her. Let us celebrate the CEO taking care of herself.</p>
+        <div class="btn-row">
+          <a class="btn btn-pink" href="https://www.skool.com/embody-wealth" target="_blank" rel="noopener">Share in Embody Wealth</a>
+        </div>
+        <div class="signoff">
+          <p>You're the CEO, love. Start living like it.</p>
+          <p>I believe in you. To living our dreams.</p>
+          <p class="name">Aurailia ✦</p>
+        </div>
+      </div>
+
+      </div>
+    </section>
+
     <!-- MY WHY -->
     <section class="panel" id="panel-why" data-panel-id="why" aria-labelledby="h-why" hidden>
       <header>
@@ -1055,11 +1204,13 @@ Here's my voice note:</pre>
 
 <script>
 /* Change this number to open the next day */
-var UNLOCKED_THROUGH = 3;
+var UNLOCKED_THROUGH = 4;
 
 /* Audio files. The page tries each path in order. A Dropbox link (raw=1, no &st=) also works here. */
 var AUDIO = {
   "1-activation": ["https://www.dropbox.com/scl/fi/zuizn8fcnjucvhjhdwpy7/day1-activation.mp3?rlkey=6yz5gs373ygwznj7mjkfulygg&raw=1", "audio/day1-activation.mp3", "day1-activation.mp3", "audio/wealthy_CEO_Day_1.mp3", "wealthy_CEO_Day_1.mp3"],
+  "4-activation": "",
+  "4-millionaire": ["https://www.dropbox.com/scl/fi/acts6jn0i55p431s0ppk4/millionaire-hypnosis.mp3?rlkey=7k2st6lfptdh1dfff3mly7bul&raw=1"],
   "3-activation": ["https://www.dropbox.com/scl/fi/70rc6etarpnrrh05y8re4/day-3-wealthy-CEO.mp3?rlkey=ak9xlfgnml0bk88h41z0hb0zc&raw=1"],
   "2-activation": ["https://www.dropbox.com/scl/fi/xfz0lk6jtntxs0bdvu6ce/Day-2-Wealthy-CEO-Activation.mp3?rlkey=ahpphdpun4mcem6cxnfjxw3uu&raw=1", "audio/day2-activation.mp3", "day2-activation.mp3"],
   "1-hypnosis": ["https://www.dropbox.com/scl/fi/ld2qsvmc5aewtjh69h5tn/day1-meet-her.mp3?rlkey=yxg8w4d778osehjwnz2zqsx79&raw=1", "audio/day1-meet-her.mp3", "day1-meet-her.mp3", "audio/wealthy_CEO_hypnosis.mp3", "wealthy_CEO_hypnosis.mp3"]
@@ -1069,7 +1220,7 @@ var DAYS = [
   { n: 1, name: "Decide", teaser: "Choose the timeline and anchor it in your body." },
   { n: 2, name: "Want It All", teaser: "Desire without the apology. What she really wants, said out loud with nothing shrunk down." },
   { n: 3, name: "Rewrite Who You Are", teaser: "The old story gets replaced with the woman who already does this." },
-  { n: 4, name: "Already Mine", teaser: "The money, the clients and the ease already belong to her timeline. You practice receiving them." },
+  { n: 4, name: "Her CEO Day", teaser: "How she decides, how she pays herself first, and how she gifts herself." },
   { n: 5, name: "Her Standards", teaser: "What she no longer tolerates. Raising the floor." },
   { n: 6, name: "Seen and Paid", teaser: "She sells from overflow. Being visible feels like sharing what's already full." },
   { n: 7, name: "It's Done", teaser: "Living from the end, and carrying her through the rest of the month." }
@@ -1886,6 +2037,68 @@ function setupRecorder() {
   idbGet("d3", function (blob) { if (blob) { recShowBlob(blob); } });
 }
 
+/* Day 4: pay yourself */
+function payGet() {
+  try { var v = JSON.parse(safeGet("wct-d4-pay") || "[]"); return Array.isArray(v) ? v : []; } catch (e) { return []; }
+}
+function paySave(arr) { safeSet("wct-d4-pay", JSON.stringify(arr)); }
+function fmtMoney2(n) {
+  return "$" + (Math.round(n * 100) / 100).toLocaleString("en-US", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 });
+}
+function renderPayCut() {
+  var base = parseMoney(document.getElementById("d4-in").value);
+  var cut = base * 0.2;
+  document.getElementById("d4-cut").hidden = !(base > 0);
+  document.getElementById("d4-pay-btn").hidden = !(base > 0);
+  document.getElementById("d4-cut-amt").textContent = fmtMoney2(cut);
+  document.getElementById("d4-pay-btn").textContent = "I paid myself " + fmtMoney2(cut);
+}
+function renderPayList() {
+  var list = document.getElementById("d4-pay-list");
+  while (list.firstChild) { list.removeChild(list.firstChild); }
+  var arr = payGet();
+  var total = 0;
+  for (var i = arr.length - 1; i >= 0; i--) {
+    total += Number(arr[i].amt) || 0;
+    var li = el("li");
+    li.appendChild(el("span", "pd", arr[i].date + " · from " + fmtMoney2(Number(arr[i].from) || 0)));
+    li.appendChild(el("span", "pa", fmtMoney2(Number(arr[i].amt) || 0)));
+    var x = el("button", "wh-x", "\u2715");
+    x.type = "button";
+    x.setAttribute("aria-label", "Remove this payment");
+    x.setAttribute("data-idx", String(i));
+    x.addEventListener("click", onPayRemove);
+    li.appendChild(x);
+    list.appendChild(li);
+  }
+  document.getElementById("d4-total").textContent = fmtMoney2(total);
+}
+function onPayAdd() {
+  var input = document.getElementById("d4-in");
+  var base = parseMoney(input.value);
+  if (!(base > 0)) { return; }
+  var arr = payGet();
+  arr.push({ from: base, amt: Math.round(base * 20) / 100, date: new Date().toLocaleDateString(undefined, { month: "short", day: "numeric" }) });
+  paySave(arr);
+  input.value = "";
+  renderPayCut();
+  renderPayList();
+}
+function onPayRemove(e) {
+  var arr = payGet();
+  arr.splice(parseInt(e.currentTarget.getAttribute("data-idx"), 10), 1);
+  paySave(arr);
+  renderPayList();
+}
+function setupDay4() {
+  var input = document.getElementById("d4-in");
+  if (!input) { return; }
+  input.addEventListener("input", renderPayCut);
+  document.getElementById("d4-pay-btn").addEventListener("click", onPayAdd);
+  renderPayCut();
+  renderPayList();
+}
+
 function setupSavedText(areaId, statusId, copyId, key) {
   var area = document.getElementById(areaId);
   var status = document.getElementById(statusId);
@@ -2064,6 +2277,7 @@ function init() {
   setupPicks();
   setupTapping();
   setupDay3();
+  setupDay4();
   document.getElementById("navWhy").addEventListener("click", onNavClick);
   document.getElementById("menuBtn").addEventListener("click", toggleDrawer);
   document.getElementById("scrim").addEventListener("click", closeDrawer);
